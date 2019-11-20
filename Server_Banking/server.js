@@ -30,9 +30,9 @@ const connection = mysql.createConnection({
 });
 connection.connect(function(err){
     if(!err) {
-        console.log("Database is connected ... nn");
+        console.log("Database is connected ...");
     } else {
-        console.log("Error connecting database ... nn");
+        console.log("Error connecting database ...");
     }
 });
 
@@ -52,8 +52,20 @@ connection.query('CREATE TABLE customers(' +
     'PRIMARY KEY ( customer_id ));', function (err, result) {
         if(err) {
             console.log("Customers error: ", err.code)
-        }else{
-            console.log("customers is created: ", result)
+        }
+});
+
+connection.query('CREATE TABLE employees(' +
+    '`employee_id` INT NOT NULL AUTO_INCREMENT,' +
+    '`username` VARCHAR(100) NOT NULL,' +
+    '`name` VARCHAR(40) NOT NULL,' +
+    '`ssn` VARCHAR(40) NOT NULL,' +
+    '`phone` VARCHAR(40) NOT NULL,' +
+    '`address` VARCHAR(40) NOT NULL,' +
+    '`password` VARCHAR(40) NOT NULL,' +
+    'PRIMARY KEY ( employee_id ));', function (err, result) {
+        if(err) {
+            console.log("Employees error: ", err.code)
         }
 });
 
