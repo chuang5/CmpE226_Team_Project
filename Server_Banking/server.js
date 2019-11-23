@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -28,56 +28,41 @@ const connection = mysql.createConnection({
     password: '98765432',
     database: '226team'
 });
-connection.connect(function(err){
-    if(!err) {
+connection.connect(function (err) {
+    if (!err) {
         console.log("Database is connected ...");
     } else {
         console.log("Error connecting database ...");
     }
 });
 
-// connection.query('DROP TABLE IF EXISTS `customers`', function (err, result) {
-//         if(err) {console.log("customers error: ", err.code)}
-//         console.log("customers is dropped.")
-// });
+// employee = {
+//     "username": "adminE",
+//     "name": "adminE",
+//     "ssn": "12345678",
+//     "phone": "0000000000",
+//     "address": "123 1st street",
+//     "password": 'adminE'
+// }
 
-connection.query('CREATE TABLE customers(' +
-    '`customer_id` INT NOT NULL AUTO_INCREMENT,' +
-    '`username` VARCHAR(100) NOT NULL,' +
-    '`name` VARCHAR(40) NOT NULL,' +
-    '`ssn` VARCHAR(40) NOT NULL,' +
-    '`phone` VARCHAR(40) NOT NULL,' +
-    '`address` VARCHAR(40) NOT NULL,' +
-    '`password` VARCHAR(40) NOT NULL,' +
-    'PRIMARY KEY ( customer_id ));', function (err, result) {
-        if(err) {
-            console.log("Customers error: ", err.code)
-        }
-});
-
-connection.query('CREATE TABLE employees(' +
-    '`employee_id` INT NOT NULL AUTO_INCREMENT,' +
-    '`username` VARCHAR(100) NOT NULL,' +
-    '`name` VARCHAR(40) NOT NULL,' +
-    '`ssn` VARCHAR(40) NOT NULL,' +
-    '`phone` VARCHAR(40) NOT NULL,' +
-    '`address` VARCHAR(40) NOT NULL,' +
-    '`password` VARCHAR(40) NOT NULL,' +
-    'PRIMARY KEY ( employee_id ));', function (err, result) {
-        if(err) {
-            console.log("Employees error: ", err.code)
-        }
-});
+// connection.query('INSERT INTO employees (username, name, ssn, phone, address, password)' +
+//     'VALUES (?, ?, ?, ?, ?, SHA1(?))',
+//     [employee.username, employee.name, employee.ssn, employee.phone, employee.address,
+//          employee.password],
+//         function (error, results) {
+//             if (error) { console.log("error occurred", error); }
+//             console.log("employee added")
+//         });
 
 // test route
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
 //route to handle user registration
-router.post('/register',login.register);
-router.post('/login',login.login);
+router.post('/register', login.register);
+router.post('/login', login.login);
 router.post('/addCustomer', addCustomer.addCustomer);
-router.post('/deleteCustomer',deleteCustomer.deleteCustomer);
+router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
 //router.get('/login',login.login2);
 app.use('/api', router);
