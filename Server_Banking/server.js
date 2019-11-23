@@ -36,56 +36,23 @@ connection.connect(function (err) {
     }
 });
 
-// connection.query('DROP TABLE IF EXISTS `employees`', function (err, result) {
-//     if (err) { console.log("customers error: ", err.code) }
-//     console.log("customers is dropped.")
-// });
+// employee = {
+//     "username": "adminE",
+//     "name": "adminE",
+//     "ssn": "12345678",
+//     "phone": "0000000000",
+//     "address": "123 1st street",
+//     "password": 'adminE'
+// }
 
-connection.query('CREATE TABLE customers(' +
-    '`customer_id` INT NOT NULL AUTO_INCREMENT,' +
-    '`username` VARCHAR(100) NOT NULL,' +
-    '`name` VARCHAR(40) NOT NULL,' +
-    '`ssn` VARCHAR(40) NOT NULL,' +
-    '`phone` VARCHAR(40) NOT NULL,' +
-    '`address` VARCHAR(40) NOT NULL,' +
-    '`password` VARCHAR(255) NOT NULL,' +
-    'PRIMARY KEY ( customer_id ));', function (err, result) {
-        if (err) {
-            console.log("Customers error: ", err.code)
-        }
-    });
-
-connection.query('CREATE TABLE employees(' +
-    '`employee_id` INT NOT NULL AUTO_INCREMENT,' +
-    '`username` VARCHAR(100) NOT NULL,' +
-    '`name` VARCHAR(40) NOT NULL,' +
-    '`ssn` VARCHAR(40) NOT NULL,' +
-    '`phone` VARCHAR(40) NOT NULL,' +
-    '`address` VARCHAR(40) NOT NULL,' +
-    '`password` VARCHAR(255) NOT NULL,' +
-    'PRIMARY KEY ( employee_id ));', function (err, result) {
-        if (err) {
-            console.log("Employees error: ", err.code)
-        }
-    });
-
-employee = {
-    "username": "adminE",
-    "name": "adminE",
-    "ssn": "12345678",
-    "phone": "0000000000",
-    "address": "123 1st street",
-    "password": 'adminE'
-}
-
-connection.query('INSERT INTO employees (username, name, ssn, phone, address, password)' +
-    'VALUES (?, ?, ?, ?, ?, SHA1(?))',
-    [employee.username, employee.name, employee.ssn, employee.phone, employee.address,
-         employee.password],
-        function (error, results) {
-            if (error) { console.log("error occurred", error); }
-            console.log("employee added")
-        });
+// connection.query('INSERT INTO employees (username, name, ssn, phone, address, password)' +
+//     'VALUES (?, ?, ?, ?, ?, SHA1(?))',
+//     [employee.username, employee.name, employee.ssn, employee.phone, employee.address,
+//          employee.password],
+//         function (error, results) {
+//             if (error) { console.log("error occurred", error); }
+//             console.log("employee added")
+//         });
 
 // test route
 router.get('/', function (req, res) {
