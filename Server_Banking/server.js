@@ -45,6 +45,7 @@ router.get('/', function (req, res) {
 router.post('/login', login.login);
 router.post('/addUser', addUser.addUser);
 router.post('/addCreditCard', addAccount.addCreditCard);
+router.post('/addSaving', addAccount.addSaving);
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
 app.use('/', router);
