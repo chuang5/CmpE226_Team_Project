@@ -24,11 +24,12 @@ DROP TABLE IF EXISTS `credit_card`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `credit_card` (
   `card_num` varchar(255) NOT NULL,
-  `due_date` date NOT NULL,
+  `customer` int(11) NOT NULL,
+  `name_on_card` varchar(45) NOT NULL,
+  `due_date` varchar(45) NOT NULL,
   `state_balance` int(11) NOT NULL,
   `balance` int(11) NOT NULL,
   `exp` varchar(45) NOT NULL,
-  `customer` int(11) NOT NULL,
   PRIMARY KEY (`card_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,6 +40,7 @@ CREATE TABLE `credit_card` (
 
 LOCK TABLES `credit_card` WRITE;
 /*!40000 ALTER TABLE `credit_card` DISABLE KEYS */;
+INSERT INTO `credit_card` VALUES ('4204889850164311',11,'001','11/25/2019',0,0,'11/2024');
 /*!40000 ALTER TABLE `credit_card` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-25  9:26:12
+-- Dump completed on 2019-11-25 11:36:40
