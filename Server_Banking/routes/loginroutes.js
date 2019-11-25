@@ -19,29 +19,29 @@ exports.login = function (req, res) {
         if (error) {
             // console.log("error occurred",error);
             res.send({
-                "code": 400,
-                "failed": "error occurred"
+                code: 400,
+                failed: "error occurred"
             })
         } else {
             // console.log('The solution is: ', results);
             if (results.length > 0) {
                 if (results[0].password === password) {
                     res.send({
-                        "code": 200,
-                        "success": "login successfully"
+                        code: 200,
+                        success: "login successfully"
                     });
                 }
                 else {
                     res.send({
-                        "code": 204,
-                        "success": "Email and password does not match"
+                        code: 204,
+                        success: "Email and password does not match"
                     });
                 }
             }
             else {
                 res.send({
-                    "code": 204,
-                    "success": "Email does not exits"
+                    code: 204,
+                    success: "Email does not exits"
                 });
             }
         }
