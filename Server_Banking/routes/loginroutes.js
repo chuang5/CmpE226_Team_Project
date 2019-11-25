@@ -45,7 +45,6 @@ const connection = mysql.createConnection({
 
 exports.register = function (req, res) {
     // console.log("req",req.body);
-    const today = new Date();
     const customers = {
         "username": req.body.username,
         "name": req.body.name,
@@ -73,7 +72,7 @@ exports.register = function (req, res) {
 }
 
 exports.login = function (req, res) {
-    const email = req.body.email;
+    const email = req.body.username;
     const password = req.body.password;
     connection.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
         if (error) {
