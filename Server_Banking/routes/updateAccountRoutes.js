@@ -86,18 +86,17 @@ exports.addSaving = function (req, res) {
         });
 }
 
-exports.addChecking = function (req, res) {
+exports.frieness = function (req, res) {
     console.log("req", req.body);
-    account_num = parseInt(Math.random() * 1E16).toString();
 
-    const newChecking = {
-        account_num: account_num,
-        customer: req.body.customer_id,
-        balance: 0
+    const transaction = {
+        sender: req.body.sender,
+        receiver: req.body.receiver,
+        amount: req.body.amount,
+        description: req.body.description
     }
 
-    connection.query('INSERT INTO checking (account_num, customer, balance) VALUES (?, ?, ?)',
-        [newChecking.account_num, newChecking.customer, newChecking.balance],
+    connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -105,8 +104,56 @@ exports.addChecking = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
+                if (results[0].balance < transaction.transaction) {
+                    res.status(200).json({
+                        success: "Balance is not enough"
+                    });
+                } else {
+                    //if balance is enough, take out money from sender first
+                    connection.query('UPDATE checking SET balance = ? WHERE account_num = ?',
+                        [results[0].balance - parseInt(transaction.amount), transaction.sender],
+                        function (err, result) {
+                            if (err) {
+                                console.log(err)
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                // put money into receiver
+                                connection.query('SELECT * FROM checking WHERE account_num=?'
+                                    , [transaction.receiver],
+                                    function (err, result) {
+                                        if (err) {
+                                            console.log(err)
+                                            res.status(400).json({
+                                                failed: "error occurred"
+                                            })
+                                        } else {
+                                            connection.query('UPDATE checking SET balance = ? WHERE account_num = ?',
+                                                [result[0].balance + parseInt(transaction.amount), transaction.receiver],
+                                                function (err, result) {
+                                                    if (err) { console.log(err) }
+                                                });
+
+                                            // insert in frieness
+                                            connection.query('INSERT INTO frieness (sender, receiver, amount, description) VALUES (?, ?, ?, ?)',
+                                                [transaction.sender, transaction.receiver, transaction.amount, transaction.description],
+                                                function (error, results) {
+                                                    if (error) {
+                                                        console.log("error occurred", error);
+                                                        res.status(400).json({
+                                                            failed: "error occurred"
+                                                        })
+                                                    }
+                                                });
+                                        }
+                                    })
+                            }
+                        });
+
+                }
                 res.status(200).json({
-                    success: "Checking applied successfully"
+                    success: "Transaction successed"
                 });
             }
         });

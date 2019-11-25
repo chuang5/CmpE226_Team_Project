@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const login = require('./routes/loginRoutes');
 const addUser = require('./routes/addUserRoutes');
 const addAccount = require('./routes/addAccountRoutes');
+const updateAccount = require('./routes/updateAccountRoutes');
 const getCustomersList = require('./routes/getCustomersList');
 const deleteCustomer = require('./routes/deleteCustomerRoutes');
 const bodyParser = require('body-parser');
@@ -47,6 +48,8 @@ router.post('/addUser', addUser.addUser);
 router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/addSaving', addAccount.addSaving);
 router.post('/addChecking', addAccount.addChecking);
+router.post('/frieness', updateAccount.frieness);
+
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
 app.use('/', router);
