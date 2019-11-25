@@ -3,6 +3,7 @@ const mysql = require('mysql');
 
 const login = require('./routes/loginRoutes');
 const addUser = require('./routes/addUserRoutes');
+const addAccount = require('./routes/addAccountRoutes');
 const getCustomersList = require('./routes/getCustomersList');
 const deleteCustomer = require('./routes/deleteCustomerRoutes');
 const bodyParser = require('body-parser');
@@ -43,6 +44,7 @@ router.get('/', function (req, res) {
 //route to handle user registration
 router.post('/login', login.login);
 router.post('/addUser', addUser.addUser);
+router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
 app.use('/', router);
@@ -50,4 +52,5 @@ app.set('view engine', 'ejs');
 app.listen(5000, () => {
     console.log('Server is running on port: 5000');
 })
+
 
