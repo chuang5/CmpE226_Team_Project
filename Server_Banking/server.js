@@ -45,14 +45,12 @@ connection.connect(function (err) {
 //     "password": 'adminE'
 // }
 
-// connection.query('INSERT INTO employees (username, name, ssn, phone, address, password)' +
-//     'VALUES (?, ?, ?, ?, ?, SHA1(?))',
-//     [employee.username, employee.name, employee.ssn, employee.phone, employee.address,
-//          employee.password],
-//         function (error, results) {
-//             if (error) { console.log("error occurred", error); }
-//             console.log("employee added")
-//         });
+// connection.query('SELECT * FROM employees WHERE username=? AND password=SHA1(?)'
+//     ,['adminE', 'adminE'],
+//     function (error, results) {
+//         if (error) { console.log("error occurred", error); }
+//         console.log("employee: ", results)
+//     });
 
 // test route
 router.get('/', function (req, res) {
