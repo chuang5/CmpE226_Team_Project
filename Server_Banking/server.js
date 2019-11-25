@@ -1,10 +1,10 @@
 const express = require('express');
 const mysql = require('mysql');
 
-const login = require('./routes/loginroutes');
-const addCustomer = require('./routes/addCustomerroutes');
+const login = require('./routes/loginRoutes');
+const addUser = require('./routes/addUserRoutes');
 const getCustomersList = require('./routes/getCustomersList');
-const deleteCustomer = require('./routes/deleteCustomerroutes');
+const deleteCustomer = require('./routes/deleteCustomerRoutes');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,33 +36,17 @@ connection.connect(function (err) {
     }
 });
 
-// employee = {
-//     "username": "adminE",
-//     "name": "adminE",
-//     "ssn": "12345678",
-//     "phone": "0000000000",
-//     "address": "123 1st street",
-//     "password": 'adminE'
-// }
-
-// connection.query('SELECT * FROM employees WHERE username=? AND password=SHA1(?)'
-//     ,['adminE', 'adminE'],
-//     function (error, results) {
-//         if (error) { console.log("error occurred", error); }
-//         console.log("employee: ", results)
-//     });
-
 // test route
 router.get('/', function (req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
 //route to handle user registration
-router.post('/register', login.register);
 router.post('/login', login.login);
-router.post('/addCustomer', addCustomer.addCustomer);
+router.post('/addUser', addUser.addUser);
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
-//router.get('/login',login.login2);
-app.use('/api', router);
+app.use('/', router);
 app.set('view engine', 'ejs');
-app.listen(5000);
+app.listen(5000, () => {
+    console.log('Server is running on port: 5000');
+})
