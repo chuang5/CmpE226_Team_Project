@@ -46,6 +46,7 @@ router.post('/login', login.login);
 router.post('/addUser', addUser.addUser);
 router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/addSaving', addAccount.addSaving);
+router.post('/addChecking', addAccount.addChecking);
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
 app.use('/', router);

@@ -58,9 +58,9 @@ exports.addUser = function (req, res) {
                                             })
                                         } else {
                                             // randomly pick an employee to agent customer
-                                            employee_id = Math.floor(Math.random() * Math.floor(results.length))
+                                            index = Math.floor(Math.random() * Math.floor(results.length))
                                             connection.query('INSERT INTO agent (e_id, c_id) VALUES (?, ?)',
-                                                [employee_id, customer_id],
+                                                [results[index].employee_id, customer_id],
                                                 function (error, results) {
                                                     if (error) { console.log("error occurred", error); }
                                                     console.log("agency added")
