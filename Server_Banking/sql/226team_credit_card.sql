@@ -27,8 +27,8 @@ CREATE TABLE `credit_card` (
   `customer` int(11) NOT NULL,
   `name_on_card` varchar(45) NOT NULL,
   `due_date` varchar(45) NOT NULL,
-  `state_balance` int(11) NOT NULL,
-  `balance` int(11) NOT NULL,
+  `state_balance` decimal(11,0) NOT NULL,
+  `balance` decimal(11,0) NOT NULL,
   `exp` varchar(45) NOT NULL,
   PRIMARY KEY (`card_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26  1:37:47
+-- Dump completed on 2019-11-26 14:59:14

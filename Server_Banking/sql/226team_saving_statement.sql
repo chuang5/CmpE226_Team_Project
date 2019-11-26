@@ -28,9 +28,9 @@ CREATE TABLE `saving_statement` (
   `user_account` varchar(45) NOT NULL,
   `partner_account` varchar(45) NOT NULL,
   `category` varchar(45) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` decimal(11,0) NOT NULL,
   `date` date NOT NULL,
-  `balance` int(11) DEFAULT NULL,
+  `balance` decimal(11,0) NOT NULL,
   PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26  1:37:48
+-- Dump completed on 2019-11-26 14:59:14
