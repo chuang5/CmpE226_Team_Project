@@ -16,33 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `checking_statement`
+-- Table structure for table `encryptpsw`
 --
 
-DROP TABLE IF EXISTS `checking_statement`;
+DROP TABLE IF EXISTS `encryptpsw`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `checking_statement` (
-  `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user` int(11) NOT NULL,
-  `user_account` varchar(45) NOT NULL,
-  `partner_account` varchar(45) NOT NULL,
-  `category` varchar(45) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `balance` int(11) NOT NULL,
-  PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `encryptpsw` (
+  `encryption` varchar(255) NOT NULL,
+  `origin` varchar(255) NOT NULL,
+  PRIMARY KEY (`encryption`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `checking_statement`
+-- Dumping data for table `encryptpsw`
 --
 
-LOCK TABLES `checking_statement` WRITE;
-/*!40000 ALTER TABLE `checking_statement` DISABLE KEYS */;
-INSERT INTO `checking_statement` VALUES (2,11,'5645054488460159','1196171814607991','withdraw',1000,'2019-11-25',17600),(3,13,'1196171814607991','5645054488460159','deposite',1000,'2019-11-25',12400),(4,11,'5645054488460159','1196171814607991','withdraw',100,'2019-11-25',17500),(5,13,'1196171814607991','5645054488460159','deposite',100,'2019-11-25',12500),(6,11,'5645054488460159','8263804514133060','withdraw',10000,'2019-11-25',7500),(7,11,'5645054488460159','8263804514133060','deposite',5000,'2019-11-25',12500);
-/*!40000 ALTER TABLE `checking_statement` ENABLE KEYS */;
+LOCK TABLES `encryptpsw` WRITE;
+/*!40000 ALTER TABLE `encryptpsw` DISABLE KEYS */;
+INSERT INTO `encryptpsw` VALUES ('221407c03ae5c73109cce71d27e24637824f3333','003'),('551d656c45bcf11e3a35ed8723d11db88a2a021b','adminE'),('6fc978af728d43c59faa400d5f6e0471ac850d4c','002'),('d033e22ae348aeb5660fc2140aec35850c4da997','admin'),('de1f53b6fbc3fecd35b0bbc963e21902a149e5e3','005'),('e193a01ecf8d30ad0affefd332ce934e32ffce72','001');
+/*!40000 ALTER TABLE `encryptpsw` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26  1:37:48
+-- Dump completed on 2019-11-26  1:37:49
