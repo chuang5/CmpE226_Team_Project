@@ -60,18 +60,16 @@ exports.addCreditCard = function (req, res) {
         });
 }
 
-exports.addSaving = function (req, res) {
+exports.toSaving = function (req, res) {
     console.log("req", req.body);
-    account_num = parseInt(Math.random() * 1E16).toString();
 
-    const newSaving = {
-        account_num: account_num,
-        customer: req.body.customer_id,
-        balance: 0
+    const transaction = {
+        sender: req.body.sender, // checking account
+        receiver: req.body.receiver, // saving account
+        amount: req.body.amount
     }
 
-    connection.query('INSERT INTO saving (account_num, customer, balance) VALUES (?, ?, ?)',
-        [newSaving.account_num, newSaving.customer, newSaving.balance],
+    connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -79,8 +77,166 @@ exports.addSaving = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
+                senderAccountInfo = results[0];
+                if (senderAccountInfo.balance < transaction.transaction) {
+                    res.status(400).json({
+                        failed: "Balance is not enough"
+                    });
+                } else {
+                    //if balance is enough, withdraw money from sender first
+                    connection.query('UPDATE checking SET balance = ? WHERE account_num = ?',
+                        [senderAccountInfo.balance - parseInt(transaction.amount), transaction.sender],
+                        function (err, result) {
+                            if (err) {
+                                console.log(err)
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                // record txn in statement
+                                connection.query('INSERT INTO checking_statement (user, user_account, partner_account,' +
+                                    ' category, amount, date, balance) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                    [senderAccountInfo.customer, senderAccountInfo.account_num, transaction.receiver,
+                                        'withdraw', transaction.amount, new Date(), senderAccountInfo.balance - parseInt(transaction.amount)],
+                                    function (err, result) {
+                                        if (err) {
+                                            console.log(err)
+                                            res.status(400).json({
+                                                failed: "error occurred"
+                                            })
+                                        } else {
+                                            console.log('checking statment, sender/user %d updated', senderAccountInfo.customer)
+                                        }
+                                    });
+                                // put money into receiver
+                                connection.query('SELECT * FROM saving WHERE account_num=?'
+                                    , [transaction.receiver],
+                                    function (err, result) {
+                                        if (err) {
+                                            console.log(err)
+                                            res.status(400).json({
+                                                failed: "error occurred"
+                                            })
+                                        } else {
+                                            receiverAccountInfo = result[0];
+                                            connection.query('UPDATE saving SET balance = ? WHERE account_num = ?',
+                                                [receiverAccountInfo.balance + parseInt(transaction.amount), transaction.receiver],
+                                                function (err, result) {
+                                                    if (err) { console.log(err) }
+                                                });
+
+                                            connection.query('INSERT INTO saving_statement (user, user_account, partner_account,' +
+                                                ' category, amount, date, balance) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                                [receiverAccountInfo.customer, receiverAccountInfo.account_num, transaction.sender,
+                                                    'deposite', transaction.amount, new Date(), receiverAccountInfo.balance + parseInt(transaction.amount)],
+                                                function (err, result) {
+                                                    if (err) {
+                                                        console.log(err)
+                                                        res.status(400).json({
+                                                            failed: "error occurred"
+                                                        })
+                                                    } else {
+                                                        console.log('saving statment, receiver/user %d updated', receiverAccountInfo.customer)
+                                                    }
+                                                });
+                                        }
+                                    })
+                            }
+                        });
+                }
                 res.status(200).json({
-                    success: "Saving applied successfully"
+                    success: "Transaction successed"
+                });
+            }
+        });
+}
+
+exports.fromSaving = function (req, res) {
+    console.log("req", req.body);
+
+    const transaction = {
+        sender: req.body.sender, // saving account
+        receiver: req.body.receiver, // checking account
+        amount: req.body.amount
+    }
+
+    connection.query('SELECT * FROM saving WHERE account_num=?', [transaction.sender],
+        function (error, results) {
+            if (error) {
+                console.log("error occurred", error);
+                res.status(400).json({
+                    failed: "error occurred"
+                })
+            } else {
+                senderAccountInfo = results[0];
+                if (senderAccountInfo.balance < transaction.transaction) {
+                    res.status(400).json({
+                        failed: "Balance is not enough"
+                    });
+                } else {
+                    //if balance is enough, withdraw money from sender first
+                    connection.query('UPDATE saving SET balance = ? WHERE account_num = ?',
+                        [senderAccountInfo.balance - parseInt(transaction.amount), transaction.sender],
+                        function (err, result) {
+                            if (err) {
+                                console.log(err)
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                // record txn in statement
+                                connection.query('INSERT INTO saving_statement (user, user_account, partner_account,' +
+                                    ' category, amount, date, balance) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                    [senderAccountInfo.customer, senderAccountInfo.account_num, transaction.receiver,
+                                        'withdraw', transaction.amount, new Date(), senderAccountInfo.balance - parseInt(transaction.amount)],
+                                    function (err, result) {
+                                        if (err) {
+                                            console.log(err)
+                                            res.status(400).json({
+                                                failed: "error occurred"
+                                            })
+                                        } else {
+                                            console.log('saving statment, sender/user %d updated', senderAccountInfo.customer)
+                                        }
+                                    });
+                                // put money into receiver
+                                connection.query('SELECT * FROM checking WHERE account_num=?'
+                                    , [transaction.receiver],
+                                    function (err, result) {
+                                        if (err) {
+                                            console.log(err)
+                                            res.status(400).json({
+                                                failed: "error occurred"
+                                            })
+                                        } else {
+                                            receiverAccountInfo = result[0];
+                                            connection.query('UPDATE checking SET balance = ? WHERE account_num = ?',
+                                                [receiverAccountInfo.balance + parseInt(transaction.amount), transaction.receiver],
+                                                function (err, result) {
+                                                    if (err) { console.log(err) }
+                                                });
+
+                                            connection.query('INSERT INTO checking_statement (user, user_account, partner_account,' +
+                                                ' category, amount, date, balance) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                                [receiverAccountInfo.customer, receiverAccountInfo.account_num, transaction.sender,
+                                                    'deposite', transaction.amount, new Date(), receiverAccountInfo.balance + parseInt(transaction.amount)],
+                                                function (err, result) {
+                                                    if (err) {
+                                                        console.log(err)
+                                                        res.status(400).json({
+                                                            failed: "error occurred"
+                                                        })
+                                                    } else {
+                                                        console.log('checking statment, receiver/user %d updated', receiverAccountInfo.customer)
+                                                    }
+                                                });
+                                        }
+                                    })
+                            }
+                        });
+                }
+                res.status(200).json({
+                    success: "Transaction successed"
                 });
             }
         });
