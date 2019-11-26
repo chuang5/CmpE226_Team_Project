@@ -48,7 +48,9 @@ router.post('/addUser', addUser.addUser);
 router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/addSaving', addAccount.addSaving);
 router.post('/addChecking', addAccount.addChecking);
-router.post('/frieness', updateAccount.frieness);
+router.put('/frieness', updateAccount.frieness);
+router.put('/toSaving', updateAccount.toSaving);
+router.put('/fromSaving', updateAccount.fromSaving);
 
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);

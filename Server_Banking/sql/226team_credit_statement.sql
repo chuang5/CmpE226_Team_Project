@@ -16,28 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `checking`
+-- Table structure for table `credit_statement`
 --
 
-DROP TABLE IF EXISTS `checking`;
+DROP TABLE IF EXISTS `credit_statement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `checking` (
-  `account_num` varchar(255) NOT NULL,
-  `customer` int(11) NOT NULL,
+CREATE TABLE `credit_statement` (
+  `s_id` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `user_account` varchar(45) NOT NULL,
+  `partner_account` varchar(45) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `date` date NOT NULL,
   `balance` int(11) NOT NULL,
-  PRIMARY KEY (`account_num`)
+  PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `checking`
+-- Dumping data for table `credit_statement`
 --
 
-LOCK TABLES `checking` WRITE;
-/*!40000 ALTER TABLE `checking` DISABLE KEYS */;
-INSERT INTO `checking` VALUES ('1196171814607991',13,12500),('5645054488460159',11,12500);
-/*!40000 ALTER TABLE `checking` ENABLE KEYS */;
+LOCK TABLES `credit_statement` WRITE;
+/*!40000 ALTER TABLE `credit_statement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `credit_statement` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
