@@ -16,12 +16,11 @@ exports.getCustomersList = function(req,res){
     let customersList = {
         results:[]
     };
-    connection.query('SELECT * FROM customers', function (error, result, fields) {
+    connection.query('SELECT * FROM customers', function (error, result) {
         if (error) {
             console.log("error occurred",error);
-            res.send({
-                "code":400,
-                "failed":"error occurred"
+            res.status(400).json({
+                failed: "error occurred"
             })
         }else{
             console.log('The solution is: ', result);
