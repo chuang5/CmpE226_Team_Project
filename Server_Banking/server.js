@@ -43,7 +43,7 @@ router.get('/', function (req, res) {
     res.json({ message: 'welcome to our upload module apis' });
 });
 //route to handle user registration
-router.post('/login', login.login);
+router.get('/login', login.login);
 router.post('/addUser', addUser.addUser);
 router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/addSaving', addAccount.addSaving);

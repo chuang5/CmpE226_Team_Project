@@ -13,37 +13,42 @@ const connection = mysql.createConnection({
 });
 
 exports.login = function (req, res) {
-    const email = req.body.username;
-    const password = req.body.password;
-    connection.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
-        if (error) {
-            // console.log("error occurred",error);
-            res.send({
-                code: 400,
-                failed: "error occurred"
-            })
-        } else {
-            // console.log('The solution is: ', results);
-            if (results.length > 0) {
-                if (results[0].password === password) {
-                    res.send({
-                        code: 200,
-                        success: "login successfully"
-                    });
-                }
-                else {
+    connection.query('SELECT * FROM customers WHERE username = ?',
+        [req.body.username], function (error, results) {
+            if (error) {
+                console.log("error occurred", error);
+                res.status(400).json({
+                    failed: "error occurred"
+                })
+            } else {
+                console.log('The solution is: ', results);
+                if (results.length > 0) {
+                    var pswString = results[0].password;
+                    connection.query('SELECT encryption FROM encryptpsw WHERE origin = ?',
+                        [req.body.password], function (error, result) {
+                            if (error) {
+                                console.log("error occurred", error);
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            }
+                            if (pswString == result[0].encryption) {
+                                res.status(200).json({
+                                    success: "login successfully",
+                                    data: results[0]
+                                })
+                            } else {
+                                res.status(204).json({
+                                    success: "Password incorrect."
+                                })
+                            }
+                        });
+                } else {
                     res.send({
                         code: 204,
-                        success: "Email and password does not match"
+                        success: "User doesn't exist"
                     });
                 }
             }
-            else {
-                res.send({
-                    code: 204,
-                    success: "Email does not exits"
-                });
-            }
-        }
-    });
+        });
 }

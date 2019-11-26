@@ -49,6 +49,9 @@ exports.addUser = function (req, res) {
                                 console.log("new customer ID:", results.insertId);
                                 // new user ID
                                 customer_id = results.insertId;
+
+                                // NEED TO BE MODIFIED WITH SECRETARY VERSION
+
                                 connection.query('SELECT * FROM employees;',
                                     function (error, results) {
                                         if (error) {
@@ -57,6 +60,19 @@ exports.addUser = function (req, res) {
                                                 failed: "error occurred"
                                             })
                                         } else {
+                                            // add to encryption table
+                                            connection.query('SELECT * FROM encryptpsw WHERE encryption=SHA1(?);',
+                                                [newUser.password], function (error, results) {
+                                                    if (error) { console.log("error occurred", error); }
+                                                    if (results.length == 0) {
+                                                        connection.query('INSERT INTO encryptpsw (encryption, origin) VALUES (SHA1(?), ?)',
+                                                            [newUser.password, newUser.password], function (error, results) {
+                                                                if (error) { console.log("error occurred", error); }
+                                                                console.log("encrypted paswword added")
+                                                            });
+                                                    }
+                                                })
+
                                             // randomly pick an employee to agent customer
                                             index = Math.floor(Math.random() * Math.floor(results.length))
                                             connection.query('INSERT INTO agent (e_id, c_id) VALUES (?, ?)',
@@ -101,6 +117,18 @@ exports.addUser = function (req, res) {
                             newUser.phone, newUser.address, newUser.password],
                             function (error, results) {
                                 if (error) { console.log("error occurred", error); }
+                                // add to encryption table
+                                connection.query('SELECT * FROM encryptpsw WHERE encryption=SHA1(?);',
+                                    [newUser.password], function (error, results) {
+                                        if (error) { console.log("error occurred", error); }
+                                        if (results.length == 0) {
+                                            connection.query('INSERT INTO encrpytpsw (encryption, origin) VALUES (SHA1?, ?)',
+                                                [newUser.password, newUser.password], function (error, results) {
+                                                    if (error) { console.log("error occurred", error); }
+                                                    console.log("encrypted paswword added")
+                                                });
+                                        }
+                                    })
                                 console.log("Employee added")
                             });
                         res.status(200).json({
