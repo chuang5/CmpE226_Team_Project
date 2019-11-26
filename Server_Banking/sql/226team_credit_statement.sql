@@ -23,16 +23,16 @@ DROP TABLE IF EXISTS `credit_statement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `credit_statement` (
-  `s_id` int(11) NOT NULL,
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
   `user` int(11) NOT NULL,
   `user_account` varchar(45) NOT NULL,
   `partner_account` varchar(45) NOT NULL,
   `category` varchar(45) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` decimal(11,0) NOT NULL,
   `date` date NOT NULL,
-  `balance` int(11) NOT NULL,
+  `balance` decimal(11,0) NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `credit_statement` (
 
 LOCK TABLES `credit_statement` WRITE;
 /*!40000 ALTER TABLE `credit_statement` DISABLE KEYS */;
+INSERT INTO `credit_statement` VALUES (1,11,'4204889850164311','5645054488460159','payment',200,'2019-11-26',-200),(3,11,'4204889850164311','1196171814607991','purchase',200,'2019-11-26',0);
 /*!40000 ALTER TABLE `credit_statement` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26  1:37:46
+-- Dump completed on 2019-11-26 14:59:14

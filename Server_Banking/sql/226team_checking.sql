@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `checking`;
 CREATE TABLE `checking` (
   `account_num` varchar(255) NOT NULL,
   `customer` int(11) NOT NULL,
-  `balance` int(11) NOT NULL,
+  `balance` decimal(11,0) NOT NULL,
   PRIMARY KEY (`account_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,7 +36,7 @@ CREATE TABLE `checking` (
 
 LOCK TABLES `checking` WRITE;
 /*!40000 ALTER TABLE `checking` DISABLE KEYS */;
-INSERT INTO `checking` VALUES ('1196171814607991',13,12500),('5645054488460159',11,12500);
+INSERT INTO `checking` VALUES ('1196171814607991',13,12700),('5645054488460159',11,12300);
 /*!40000 ALTER TABLE `checking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26  1:37:46
+-- Dump completed on 2019-11-26 14:59:13

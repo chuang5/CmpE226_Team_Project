@@ -6,6 +6,7 @@ const addUser = require('./routes/addUserRoutes');
 const addAccount = require('./routes/addAccountRoutes');
 const updateAccount = require('./routes/updateAccountRoutes');
 const getCustomersList = require('./routes/getCustomersList');
+const getCustomerInfo = require('./routes/getCustomerInfo');
 const deleteCustomer = require('./routes/deleteCustomerRoutes');
 const bodyParser = require('body-parser');
 const app = express();
@@ -51,9 +52,12 @@ router.post('/addChecking', addAccount.addChecking);
 router.put('/frieness', updateAccount.frieness);
 router.put('/toSaving', updateAccount.toSaving);
 router.put('/fromSaving', updateAccount.fromSaving);
+router.put('/payCreditCard', updateAccount.payCreditCard);
+router.put('/purchase', updateAccount.purchase);
 
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.get('/getCustomersList', getCustomersList.getCustomersList);
+router.get('/getCustomerInfo', getCustomerInfo.getCustomerInfo);
 app.use('/', router);
 app.set('view engine', 'ejs');
 app.listen(5000, () => {
