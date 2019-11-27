@@ -16,30 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `statement`
+-- Table structure for table `checking_statement`
 --
 
-DROP TABLE IF EXISTS `statement`;
+DROP TABLE IF EXISTS `checking_statement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `statement` (
+CREATE TABLE `checking_statement` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer` int(11) NOT NULL,
-  `account` varchar(255) NOT NULL,
+  `user` int(11) NOT NULL,
+  `user_account` varchar(45) NOT NULL,
+  `partner_account` varchar(45) NOT NULL,
   `category` varchar(45) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` decimal(11,0) NOT NULL,
   `date` date NOT NULL,
+  `balance` decimal(11,0) NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `statement`
+-- Dumping data for table `checking_statement`
 --
 
-LOCK TABLES `statement` WRITE;
-/*!40000 ALTER TABLE `statement` DISABLE KEYS */;
-/*!40000 ALTER TABLE `statement` ENABLE KEYS */;
+LOCK TABLES `checking_statement` WRITE;
+/*!40000 ALTER TABLE `checking_statement` DISABLE KEYS */;
+INSERT INTO `checking_statement` VALUES (2,11,'5645054488460159','1196171814607991','withdraw',1000,'2019-11-25',17600),(3,13,'1196171814607991','5645054488460159','deposite',1000,'2019-11-25',12400),(4,11,'5645054488460159','1196171814607991','withdraw',100,'2019-11-25',17500),(5,13,'1196171814607991','5645054488460159','deposite',100,'2019-11-25',12500),(6,11,'5645054488460159','8263804514133060','withdraw',10000,'2019-11-25',7500),(7,11,'5645054488460159','8263804514133060','deposite',5000,'2019-11-25',12500),(10,11,'5645054488460159','4204889850164311','payment',200,'2019-11-26',12300),(11,13,'1196171814607991','4204889850164311','receive',200,'2019-11-26',12700);
+/*!40000 ALTER TABLE `checking_statement` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-25 13:00:58
+-- Dump completed on 2019-11-26 14:59:14

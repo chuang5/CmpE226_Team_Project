@@ -24,12 +24,13 @@ DROP TABLE IF EXISTS `frieness`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `frieness` (
   `f_id` int(11) NOT NULL AUTO_INCREMENT,
-  `receiver` varchar(45) NOT NULL,
-  `sender` varchar(45) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `user_account` varchar(45) NOT NULL,
+  `partner_account` varchar(45) NOT NULL,
+  `amount` decimal(11,0) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`f_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +39,7 @@ CREATE TABLE `frieness` (
 
 LOCK TABLES `frieness` WRITE;
 /*!40000 ALTER TABLE `frieness` DISABLE KEYS */;
-INSERT INTO `frieness` VALUES (1,'1196171814607991','5645054488460159',100,'Test for free money'),(2,'1196171814607991','5645054488460159',100,'Test for free money'),(3,'1196171814607991','5645054488460159',100,'Test for free money'),(4,'1196171814607991','5645054488460159',1000,'DOn\'t take my money again. I will give you more');
+INSERT INTO `frieness` VALUES (1,11,'5645054488460159','1196171814607991',100,'Test for free money'),(2,11,'5645054488460159','1196171814607991',100,'Test for free money'),(3,11,'5645054488460159','1196171814607991',100,'Test for free money'),(4,11,'5645054488460159','1196171814607991',1000,'DOn\'t take my money again. I will give you more'),(5,11,'5645054488460159','1196171814607991',1000,'How dare you!'),(6,11,'5645054488460159','1196171814607991',100,'Put');
 /*!40000 ALTER TABLE `frieness` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-25 13:00:57
+-- Dump completed on 2019-11-26 14:59:15

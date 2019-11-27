@@ -16,32 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `credit_card`
+-- Table structure for table `encryptpsw`
 --
 
-DROP TABLE IF EXISTS `credit_card`;
+DROP TABLE IF EXISTS `encryptpsw`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `credit_card` (
-  `card_num` varchar(255) NOT NULL,
-  `customer` int(11) NOT NULL,
-  `name_on_card` varchar(45) NOT NULL,
-  `due_date` varchar(45) NOT NULL,
-  `state_balance` decimal(11,0) NOT NULL,
-  `balance` decimal(11,0) NOT NULL,
-  `exp` varchar(45) NOT NULL,
-  PRIMARY KEY (`card_num`)
+CREATE TABLE `encryptpsw` (
+  `encryption` varchar(255) NOT NULL,
+  `origin` varchar(255) NOT NULL,
+  PRIMARY KEY (`encryption`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `credit_card`
+-- Dumping data for table `encryptpsw`
 --
 
-LOCK TABLES `credit_card` WRITE;
-/*!40000 ALTER TABLE `credit_card` DISABLE KEYS */;
-INSERT INTO `credit_card` VALUES ('4204889850164311',11,'001','11/25/2019',0,0,'11/2024');
-/*!40000 ALTER TABLE `credit_card` ENABLE KEYS */;
+LOCK TABLES `encryptpsw` WRITE;
+/*!40000 ALTER TABLE `encryptpsw` DISABLE KEYS */;
+INSERT INTO `encryptpsw` VALUES ('221407c03ae5c73109cce71d27e24637824f3333','003'),('551d656c45bcf11e3a35ed8723d11db88a2a021b','adminE'),('6fc978af728d43c59faa400d5f6e0471ac850d4c','002'),('d033e22ae348aeb5660fc2140aec35850c4da997','admin'),('de1f53b6fbc3fecd35b0bbc963e21902a149e5e3','005'),('e193a01ecf8d30ad0affefd332ce934e32ffce72','001');
+/*!40000 ALTER TABLE `encryptpsw` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26 14:59:14
+-- Dump completed on 2019-11-26 14:59:15

@@ -24,7 +24,7 @@ exports.addCreditCard = function (req, res) {
 
     d2 = new Date();
     d2.setMonth(d2.getMonth() + 1);
-    due_date = d2.getMonth() + '/' + d2.getDate() + '/' + d2.getFullYear();
+    due_date = (d2.getMonth() + 1) + '/' + d2.getDate() + '/' + d2.getFullYear();
 
     const newCard = {
         card_num: card_num,
