@@ -50,7 +50,7 @@ class Login extends React.Component {
             "username": this.state.username,
             "password": this.state.password
         };
-        axios.post(apiBaseUrl+'login', payload)
+        axios.get(apiBaseUrl+'login', payload)
             .then(function (response) {
                 if(response.status === 200){
                     console.log("Login successfully");
