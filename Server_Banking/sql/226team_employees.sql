@@ -31,7 +31,7 @@ CREATE TABLE `employees` (
   `address` varchar(40) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'adminE','adminE','12345678','0000000000','123 1st street','551d656c45bcf11e3a35ed8723d11db88a2a021b'),(2,'002','002','12345678','1234567890','123 street','6fc978af728d43c59faa400d5f6e0471ac850d4c'),(3,'003','003','12345678','12345678','123 street','221407c03ae5c73109cce71d27e24637824f3333');
+INSERT INTO `employees` VALUES (1,'adminE','adminE','12345678','0000000000','123 1st street','551d656c45bcf11e3a35ed8723d11db88a2a021b'),(2,'002','002','12345678','1234567890','123 street','6fc978af728d43c59faa400d5f6e0471ac850d4c'),(3,'003','003','12345678','12345678','123 street','221407c03ae5c73109cce71d27e24637824f3333'),(4,'test','test','13245689','8016573218','876 1st ave.','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-26 14:59:13
+-- Dump completed on 2019-11-27 14:11:17
