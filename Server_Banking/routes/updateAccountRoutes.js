@@ -12,6 +12,34 @@ const connection = mysql.createConnection({
     database: '226team'
 });
 
+// update due date of credit cards
+connection.query('SELECT * FROM credit_card', function (err, results) {
+    if (err) {
+        console.log("error occurred", err);
+        res.status(400).json({
+            failed: "error occurred"
+        })
+        console.log(results)
+    }
+    for (i = 0; i < results.length; i++) {
+        currentCard = results[i]
+        // string to date()
+        previousDue = new Date(currentCard.due_date)
+        scheduledNewDue = new Date(previousDue.setMonth(previousDue.getMonth() + 1))
+        today = new Date();
+        if (today == scheduledNewDue) {
+            newDue_date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+            connection.query('UPDATE credit_card SET due_date = ?, state_balance = ? WHERE card_num = ?',
+                [newDue_date, currentCard.balance, currentCard.card_num], function (err, result) {
+                    if (err) {
+                        console.log("error occurred", err);
+                    }
+                    console.log('credit card %s info updated', currentCard.card_num)
+                })
+        }
+    }
+})
+
 exports.payCreditCard = function (req, res) {
     console.log("req", req.body);
 
