@@ -41,12 +41,12 @@ exports.login = function (req, res) {
                                         data: results[0]
                                     })
                                 } else {
-                                    res.status(401).json({
+                                    res.status(200).json({
                                         message: "Password incorrect"
                                     })
                                 }
                             }else {
-                                res.status(401).json({
+                                res.status(200).json({
                                     message: "Password incorrect"
                                 })
                             }
