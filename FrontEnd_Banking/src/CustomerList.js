@@ -75,7 +75,7 @@ import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 
 //const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
-const fakeDataUrl = 'http://localhost:5000/api/getCustomersList';
+const fakeDataUrl = 'http://localhost:5000/getCustomersList';
 
 class CustomerList extends React.Component {
     state = {
@@ -144,10 +144,11 @@ class CustomerList extends React.Component {
                                     avatar={
                                         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                     }
-                                    title={<a href="https://ant.design">{item.first_name}</a>}
-                                    description={item.email}
+                                    title={<a href="/customerDetail">{item.name}</a>}
+                                    //title={<a href="https://ant.design">{item.name}</a>}
+                                    description={item.ssn}
                                 />
-                                <div>{item.account_no}</div>
+                                <div>{item.phone}</div>
                             </List.Item>
                         )}
                     >
