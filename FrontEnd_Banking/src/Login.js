@@ -62,9 +62,7 @@ class Login extends React.Component {
                         // let uploadScreen = [];
                         // uploadScreen.push(<Main appContext={self.props.appContext}/>);
                         // self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-                    }
-                }else if (response.status === 401){
-                    if (response.data.message == "Password incorrect") {
+                    } else if (response.data.message == "Password incorrect") {
                         console.log("Username password do not match");
                         alert("username password do not match")
                     } else if (response.data.message == "User doesn't exist") {
