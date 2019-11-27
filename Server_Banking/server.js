@@ -49,7 +49,8 @@ router.get('/', function (req, res) {
 });
 //route to handle user registration
 router.post('/login', login.login);
-router.post('/addUser', addUser.addUser);
+router.post('/Signup', addUser.signup);
+router.post('/addCustomer', addUser.addCustomer);
 router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/addSaving', addAccount.addSaving);
 router.post('/addChecking', addAccount.addChecking);
