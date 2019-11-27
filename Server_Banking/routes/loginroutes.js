@@ -21,6 +21,7 @@ exports.login = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
+                // console.log(req.body)
                 if (results.length > 0) {
                     var pswString = results[0].password;
                     connection.query('SELECT encryption FROM encryptpsw WHERE origin = ?',
@@ -33,20 +34,27 @@ exports.login = function (req, res) {
                             }
                             console.log(pswString)
                             console.log('The solution is: ', result);
-                            if (pswString == result[0].encryption) {
-                                res.status(200).json({
-                                    success: "login successfully",
-                                    data: results[0]
-                                })
-                            } else {
-                                res.status(200).json({
-                                    failed: "Password incorrect."
+                            if(result > 0){
+                                if (pswString == result[0].encryption) {
+                                    res.status(200).json({
+                                        message: "login successfully",
+                                        data: results[0]
+                                    })
+                                } else {
+                                    res.status(401).json({
+                                        message: "Password incorrect"
+                                    })
+                                }
+                            }else {
+                                res.status(401).json({
+                                    message: "Password incorrect"
                                 })
                             }
+                            
                         });
                 } else {
                     res.status(200).json({
-                        failed: "User doesn't exist"
+                        message: "User doesn't exist"
                     })
                 }
             }
