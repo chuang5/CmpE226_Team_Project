@@ -44,10 +44,10 @@ class Login extends React.Component {
     }
 
     handleClick(event){
-        let apiBaseUrl = "http://localhost:5000/api/";
+        let apiBaseUrl = "http://localhost:5000/";
         let self = this;
         let payload = {
-            "email": this.state.username,
+            "username": this.state.username,
             "password": this.state.password
         };
         axios.post(apiBaseUrl+'login', payload)
