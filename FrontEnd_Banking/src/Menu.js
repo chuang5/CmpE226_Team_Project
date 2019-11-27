@@ -22,7 +22,7 @@ class CustomMenu extends React.Component {
     render() {
         const { changeContent } = this.props;
         return (
-            <div style={{ width: 256}}>
+            <div style={{ width: 256 }}>
                 <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
                     <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                 </Button>
@@ -82,6 +82,11 @@ class CustomMenu extends React.Component {
                             <Menu.Item key="12">Option 12</Menu.Item>
                         </SubMenu>
                     </SubMenu>
+                    <Menu.Item key="13">
+                        <Icon type="logout" />
+                        <span>Logout</span>
+                        <Link to='/' ></Link>
+                    </Menu.Item>
                 </Menu>
             </div>
         );

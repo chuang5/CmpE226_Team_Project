@@ -78,7 +78,7 @@ exports.addCustomer = function (req, res) {
         "phone": req.body.phone,
         "address": req.body.address,
         "password": req.body.password,
-        "agent": req.body.agentId
+        "agent": req.body.employee_id
     }
     connection.query('SELECT username FROM customers;',
         function (error, results) {
