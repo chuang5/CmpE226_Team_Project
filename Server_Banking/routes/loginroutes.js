@@ -34,23 +34,17 @@ exports.login = function (req, res) {
                             }
                             console.log(pswString)
                             console.log('The solution is: ', result);
-                            if(result > 0){
-                                if (pswString == result[0].encryption) {
-                                    res.status(200).json({
-                                        message: "login successfully",
-                                        data: results[0]
-                                    })
-                                } else {
-                                    res.status(200).json({
-                                        message: "Password incorrect"
-                                    })
-                                }
-                            }else {
+                            if (result.length > 0 && pswString == result[0].encryption) {
+                                res.status(200).json({
+                                    message: "login successfully",
+                                    data: results[0]
+                                })
+                            } else {
                                 res.status(200).json({
                                     message: "Password incorrect"
                                 })
                             }
-                            
+
                         });
                 } else {
                     res.status(200).json({
