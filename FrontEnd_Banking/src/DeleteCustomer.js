@@ -8,7 +8,7 @@ import axios from "axios";
 class DeleteCustomer extends Component {
 
     state = {
-        account_no: ''
+        username: ''
     }
 
     render() {
@@ -17,9 +17,9 @@ class DeleteCustomer extends Component {
                 <MuiThemeProvider>
                     <div>
                         <TextField
-                            hintText="Enter account number"
-                            floatingLabelText="Account Number"
-                            onChange = {(event,newValue) => this.setState({account_no:newValue})}
+                            hintText="Enter User Name"
+                            floatingLabelText="User Name"
+                            onChange = {(event,newValue) => this.setState({username:newValue})}
                         />
                         <br/>
                         <RaisedButton label="Delete" primary={true} style={style} onClick={(event) => this.handleClick.bind(this)(event)}/>
@@ -30,10 +30,10 @@ class DeleteCustomer extends Component {
     }
 
     handleClick() {
-        const apiBaseUrl = "http://localhost:5000/api/";
+        const apiBaseUrl = "http://localhost:5000";
         console.log("values",this.state.account_no);
         let payload = {
-            "account_no" : this.state.account_no
+            "username" : this.state.username
         };
         const callback = this.props.onDeleteCustomerSuccess;
         axios.post(apiBaseUrl+'/deleteCustomer', payload)

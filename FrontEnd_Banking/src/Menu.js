@@ -63,7 +63,9 @@ class CustomMenu extends React.Component {
                         <Menu.Item key="6">
                             <Link to='/main/deleteCustomer' >Delete Customer</Link>
                         </Menu.Item>
-                        <Menu.Item key="7">Option 7</Menu.Item>
+                        <Menu.Item key="7">
+                            <Link to='/main/openAccount'>Open Account</Link>
+                        </Menu.Item>
                         <Menu.Item key="8">Option 8</Menu.Item>
                     </SubMenu>
                     <SubMenu
