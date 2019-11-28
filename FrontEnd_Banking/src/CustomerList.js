@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 // import { List, Avatar, Icon } from 'antd';
 //
 // const listData = [];
@@ -90,6 +91,13 @@ class CustomerList extends React.Component {
                 data: res.results,
             });
         });
+        // let payload = {
+        //     "employee_id": 3
+        // };
+        // axios.post(fakeDataUrl, payload).then((response) => {
+        //     console.log(response)
+            
+        // })
     }
 
     fetchData = callback => {
@@ -103,6 +111,7 @@ class CustomerList extends React.Component {
             },
         });
     };
+
 
     handleInfiniteOnLoad = () => {
         let { data } = this.state;
@@ -118,6 +127,7 @@ class CustomerList extends React.Component {
             return;
         }
         this.fetchData(res => {
+            console.log(res)
             data = data.concat(res.results);
             this.setState({
                 data,

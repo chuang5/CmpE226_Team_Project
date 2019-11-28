@@ -67,7 +67,7 @@ exports.addSaving = function (req, res) {
     const newSaving = {
         account_num: account_num,
         customer: req.body.customer_id,
-        balance: 0
+        balance: req.body.balance
     }
 
     connection.query('INSERT INTO saving (account_num, customer, balance) VALUES (?, ?, ?)',
@@ -93,7 +93,7 @@ exports.addChecking = function (req, res) {
     const newChecking = {
         account_num: account_num,
         customer: req.body.customer_id,
-        balance: 0
+        balance: req.body.balance
     }
 
     connection.query('INSERT INTO checking (account_num, customer, balance) VALUES (?, ?, ?)',

@@ -13,6 +13,7 @@ const connection = mysql.createConnection({
 });
 
 exports.getCustomersList = function (req, res) {
+    console.log(req.param)
     let customersList = [];
     let e_id = req.body.employee_id
     function returnList() {
