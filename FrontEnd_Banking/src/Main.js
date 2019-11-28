@@ -7,11 +7,7 @@ import MyBusiness from "./MyBusiness";
 import AddCustomer from "./AddCustomer";
 import MyAlert from "./MyAlert";
 import DeleteCustomer from "./DeleteCustomer";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
+import OpenAccount from "./OpenAccount";
 
 class Main extends React.Component {
 
@@ -26,19 +22,17 @@ class Main extends React.Component {
       if (this.state.key === '1') {
           return <MyBusiness/>;
       } else if (this.state.key === '5') {
+
           return <AddCustomer onceAddCustomerSuccess={this.handleChangeIsAddCustomerSuccess.bind(this)}/>;
-          // if (this.state.isAddCustomerSuccess) {
-          //     return <MyAlert/>;
-          // } else {
-          //     return <AddCustomer onceAddCustomerSuccess={this.handleChangeIsAddCustomerSuccess.bind(this)}/>;
-          // }
+
       } else if (this.state.key === '6') {
+
           return <DeleteCustomer onDeleteCustomerSuccess={this.handleChangeIsDeleteCustomerSuccess.bind(this)}/>;
-          // if (this.state.isDeleteCustomerSuccess) {
-          //     return <MyAlert/>
-          // } else {
-          //     return <DeleteCustomer onDeleteCustomerSuccess={this.handleChangeIsDeleteCustomerSuccess.bind(this)}/>;
-          // }
+
+      } else if (this.state.key === '7') {
+
+          return <OpenAccount/>
+
       }
   }
 
@@ -62,6 +56,11 @@ class Main extends React.Component {
                   {key: '6'}
               );
               break;
+          case "7":
+              this.setState(
+                  {key: '7'}
+              );
+              break;
       }
   }
   handleChangeIsDeleteCustomerSuccess() {
@@ -71,9 +70,6 @@ class Main extends React.Component {
   }
   handleChangeIsAddCustomerSuccess() {
       alert("Add customer successfully!")
-      // this.setState(
-      //     {isAddCustomerSuccess: true}
-      // );
   }
 
   render() {

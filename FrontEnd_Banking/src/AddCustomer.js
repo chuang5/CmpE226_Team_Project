@@ -10,11 +10,12 @@ class AddCustomer extends Component {
     constructor(props){
         super(props);
         this.state={
-            first_name:'',
-            last_name:'',
-            email:'',
-            password:'',
-            account_no:''
+            user_name:'',
+            name:'',
+            ssn:'',
+            phone:'',
+            address:'',
+            password:''
         }
     }
 
@@ -27,22 +28,35 @@ class AddCustomer extends Component {
                         {/*    title="Open Account"*/}
                         {/*/>*/}
                         <TextField
-                            hintText="Enter your First Name"
-                            floatingLabelText="First Name"
-                            onChange = {(event,newValue) => this.setState({first_name:newValue})}
+                            hintText="Enter your User Name"
+                            floatingLabelText="User Name"
+                            onChange = {(event,newValue) => this.setState({user_name:newValue})}
                         />
                         <br/>
                         <TextField
-                            hintText="Enter your Last Name"
-                            floatingLabelText="Last Name"
-                            onChange = {(event,newValue) => this.setState({last_name:newValue})}
+                            hintText="Enter your Name"
+                            floatingLabelText="Name"
+                            onChange = {(event,newValue) => this.setState({name:newValue})}
                         />
                         <br/>
                         <TextField
-                            hintText="Enter your Email"
-                            type="email"
-                            floatingLabelText="Email"
-                            onChange = {(event,newValue) => this.setState({email:newValue})}
+                            hintText="Enter your SSN"
+                            //type="email"
+                            floatingLabelText="SSN"
+                            onChange = {(event,newValue) => this.setState({ssn:newValue})}
+                        />
+                        <br/>
+                        <TextField
+                            hintText="Enter your Address"
+                            //type="email"
+                            floatingLabelText="Address"
+                            onChange = {(event,newValue) => this.setState({address:newValue})}
+                        />
+                        <br/>
+                        <TextField
+                            hintText="Enter your Phone Number"
+                            floatingLabelText="Phone Number"
+                            onChange = {(event,newValue) => this.setState({phone:newValue})}
                         />
                         <br/>
                         <TextField
@@ -50,12 +64,6 @@ class AddCustomer extends Component {
                             hintText="Enter your Password"
                             floatingLabelText="Password"
                             onChange = {(event,newValue) => this.setState({password:newValue})}
-                        />
-                        <br/>
-                        <TextField
-                            hintText="Enter your Account Number"
-                            floatingLabelText="Account Number"
-                            onChange = {(event,newValue) => this.setState({account_no:newValue})}
                         />
                         <br/>
                         <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick.bind(this)(event)}/>
@@ -66,25 +74,30 @@ class AddCustomer extends Component {
     }
 
     handleClick(event){
-        var apiBaseUrl = "http://localhost:5000/api/";
-        console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password,this.state.account_no);
+        var apiBaseUrl = "http://localhost:5000";
         //To be done:check for empty values before hitting submit
         let payload = {
-            "first_name": this.state.first_name,
-            "last_name": this.state.last_name,
-            "email": this.state.email,
+            "username": this.state.user_name,
+            "name": this.state.name,
+            "ssn": this.state.ssn,
+            "phone": this.state.phone,
+            "address": this.state.address,
             "password": this.state.password,
-            "account_no": this.state.account_no
+            "agentId": localStorage.getItem("employee"),
         };
+        console.log(payload);
         const callback = this.props.onceAddCustomerSuccess;
         axios.post(apiBaseUrl+'/addCustomer', payload)
             .then(function (response) {
                 console.log(response);
-                if(response.data.code === 200){
+                if(response.data.message === "Customer registered successfully"){
                     console.log("add customer successfully");
                     //this.props.history.push('/main');
                     //{callback()}
                     alert("Customer added successfully!");
+                } else if (response.data.message === "Customer is already exist") {
+                    console.log("Customer is already exist");
+                    alert("Customer is already exist");
                 }
             })
             .catch(function (error) {

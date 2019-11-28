@@ -56,6 +56,7 @@ class Login extends React.Component {
                 console.log(response)
                 if (response.status === 200) {
                     if (response.data.message == "login successfully") {
+                        localStorage.setItem('employee',response.data.data.employee_id);
                         console.log("Login successfully");
                         console.log(self.props);
                         self.props.appContext.props.history.push('/main');
