@@ -61,8 +61,8 @@ router.put('/payCreditCard', updateAccount.payCreditCard);
 router.put('/purchase', updateAccount.purchase);
 
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
-router.get('/getCustomersList', getCustomersList.getCustomersList);
-router.get('/getCustomerInfo', getCustomerInfo.getCustomerInfo);
+router.post('/getCustomersList', getCustomersList.getCustomersList);
+router.post('/getCustomerInfo', getCustomerInfo.getCustomerInfo);
 app.use('/', router);
 app.set('view engine', 'ejs');
 app.listen(5000, () => {
