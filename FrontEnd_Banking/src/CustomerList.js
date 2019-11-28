@@ -74,8 +74,6 @@ import { List, message, Avatar, Spin } from 'antd';
 import reqwest from 'reqwest';
 
 import InfiniteScroll from 'react-infinite-scroller';
-
-//const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 const fakeDataUrl = 'http://localhost:5000/getCustomersList';
 
 class CustomerList extends React.Component {
@@ -86,32 +84,32 @@ class CustomerList extends React.Component {
     };
 
     componentDidMount() {
-        this.fetchData(res => {
-            this.setState({
-                data: res.results,
+        let payload = {
+            "employee_id": localStorage.getItem("employee")
+        };
+        axios.post(fakeDataUrl, payload)
+            .then((response) => {
+                console.log(response.data);
+
+                this.setState({
+                    data: response.data.customersList
+                });
+
             });
-        });
-        // let payload = {
-        //     "employee_id": 3
-        // };
-        // axios.post(fakeDataUrl, payload).then((response) => {
-        //     console.log(response)
-            
-        // })
+
     }
 
-    fetchData = callback => {
-        reqwest({
-            url: fakeDataUrl,
-            type: 'json',
-            method: 'get',
-            contentType: 'application/json',
-            success: res => {
-                callback(res);
-            },
-        });
-    };
-
+    // fetchData = callback => {
+    //     reqwest({
+    //         url: fakeDataUrl,
+    //         type: 'json',
+    //         method: 'get',
+    //         contentType: 'application/json',
+    //         success: res => {
+    //             callback(res);
+    //         },
+    //     });
+    // };
 
     handleInfiniteOnLoad = () => {
         let { data } = this.state;
