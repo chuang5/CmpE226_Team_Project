@@ -16,9 +16,6 @@ const connection = mysql.createConnection({
 connection.query('SELECT * FROM credit_card', function (err, results) {
     if (err) {
         console.log("error occurred", err);
-        res.status(400).json({
-            failed: "error occurred"
-        })
         console.log(results)
     }
     for (i = 0; i < results.length; i++) {

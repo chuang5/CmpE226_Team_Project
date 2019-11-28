@@ -32,8 +32,6 @@ exports.login = function (req, res) {
                                     failed: "error occurred"
                                 })
                             }
-                            console.log(pswString)
-                            console.log('The solution is: ', result);
                             if (result.length > 0 && pswString == result[0].encryption) {
                                 res.status(200).json({
                                     message: "login successfully",
