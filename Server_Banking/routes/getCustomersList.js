@@ -13,33 +13,33 @@ const connection = mysql.createConnection({
 });
 
 exports.getCustomersList = function (req, res) {
-    let customersList = {
-        results: []
-    };
+    let customersList = [];
     let e_id = req.body.employee_id
+    function returnList() {
+        res.status(200).json({ customersList });
+    }
     connection.query('SELECT * FROM agent WHERE e_id=?', [e_id], function (error, results) {
         if (error) {
             console.log("error occurred", error);
             res.status(400).json({
-                failed: "error occurred"
+                message: "error occurred"
             })
         } else {
-            for (i = 0; i < results.length; i++) {
+            for (i in results) {
                 connection.query('SELECT * FROM customers WHERE customer_id=?',
                     [results[i].c_id], function (error, results) {
                         if (error) {
                             console.log("error occurred", error);
                             res.status(400).json({
-                                failed: "error occurred"
+                                message: "error occurred"
                             })
-                        }else{
-                            customersList.results = customersList.results.concat(result);
+                        } else {
+                            console.log('The solution is: ', results);
+                            customersList = customersList.concat(results );
                         }
-                        
                     });
             }
-            console.log('The solution is: ', result);
-            res.status(200).json(customersList);
+            setTimeout(returnList, 100);
         }
     });
 }

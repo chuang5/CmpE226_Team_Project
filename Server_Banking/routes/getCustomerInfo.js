@@ -24,7 +24,7 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"info":result});
+                customerInfo = customerInfo.concat({ "info": result });
             }
         });
     connection.query('SELECT * FROM agent WHERE c_id = ?', [customer_id],
@@ -36,7 +36,7 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"agent":result});
+                customerInfo = customerInfo.concat({ "agent": result });
             }
         });
     connection.query('SELECT * FROM checking_statement WHERE user = ?', [customer_id],
@@ -48,7 +48,7 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"checking_statement":result});
+                customerInfo = customerInfo.concat({ "checking_statement": result });
             }
         });
     connection.query('SELECT * FROM saving_statement WHERE user = ?', [customer_id],
@@ -60,10 +60,10 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"saving_statement":result});
+                customerInfo = customerInfo.concat({ "saving_statement": result });
             }
         });
-        connection.query('SELECT * FROM credit_statement WHERE user = ?', [customer_id],
+    connection.query('SELECT * FROM credit_statement WHERE user = ?', [customer_id],
         function (error, result) {
             if (error) {
                 console.log("error occurred", error);
@@ -72,10 +72,10 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"credit_statement":result});
+                customerInfo = customerInfo.concat({ "credit_statement": result });
             }
         });
-        connection.query('SELECT * FROM frieness WHERE user = ?', [customer_id],
+    connection.query('SELECT * FROM frieness WHERE user = ?', [customer_id],
         function (error, result) {
             if (error) {
                 console.log("error occurred", error);
@@ -84,7 +84,7 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"frieness":result});
+                customerInfo = customerInfo.concat({ "frieness": result });
             }
         });
     connection.query('SELECT * FROM checking WHERE customer = ?',
@@ -97,11 +97,11 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"checking_accounts":result});
-                
+                customerInfo = customerInfo.concat({ "checking_accounts": result });
+
             }
         });
-        connection.query('SELECT * FROM saving WHERE customer = ?',
+    connection.query('SELECT * FROM saving WHERE customer = ?',
         [customer_id],
         function (error, result) {
             if (error) {
@@ -111,11 +111,11 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"saving_accounts":result});
-                
+                customerInfo = customerInfo.concat({ "saving_accounts": result });
+
             }
         });
-        connection.query('SELECT * FROM credit_card WHERE customer = ?',
+    connection.query('SELECT * FROM credit_card WHERE customer = ?',
         [customer_id],
         function (error, result) {
             if (error) {
@@ -125,8 +125,8 @@ exports.getCustomerInfo = function (req, res) {
                 })
             } else {
                 console.log('The solution is: ', result);
-                customerInfo = customerInfo.concat({"credit_cards":result});
-                res.status(200).json({customerInfo})
+                customerInfo = customerInfo.concat({ "credit_cards": result });
+                res.status(200).json({ customerInfo })
             }
         });
 }
