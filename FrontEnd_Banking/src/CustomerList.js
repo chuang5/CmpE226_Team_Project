@@ -72,6 +72,7 @@ import axios from 'axios';
 
 import { List, message, Avatar, Spin } from 'antd';
 import reqwest from 'reqwest';
+import { Menu, Dropdown, Button, Icon } from 'antd';
 
 import InfiniteScroll from 'react-infinite-scroller';
 const fakeDataUrl = 'http://localhost:5000/getCustomersList';
@@ -99,18 +100,6 @@ class CustomerList extends React.Component {
 
     }
 
-    // fetchData = callback => {
-    //     reqwest({
-    //         url: fakeDataUrl,
-    //         type: 'json',
-    //         method: 'get',
-    //         contentType: 'application/json',
-    //         success: res => {
-    //             callback(res);
-    //         },
-    //     });
-    // };
-
     handleInfiniteOnLoad = () => {
         let { data } = this.state;
         this.setState({
@@ -134,7 +123,48 @@ class CustomerList extends React.Component {
         });
     };
 
+    handleMenuClick = (customerid) => {
+        message.info('Deleting Customer: ' + customerid);
+        console.log('click', customerid);
+
+        const apiBaseUrl = "http://localhost:5000";
+        console.log("values",customerid);
+        let payload = {
+            "customer_id" : customerid
+        };
+        axios.post(apiBaseUrl+'/deleteCustomer', payload)
+            .then(function (response) {
+                console.log(response);
+                if(response.data.code === 200){
+                    console.log("delete customer successfully");
+                    //{callback()}
+                    alert("Customer deleted successfully!");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    };
+
     render() {
+        const menu = customerid => (
+            <Menu onClick={this.handleMenuClick.bind(this, customerid)}>
+                <Menu.Item key="1">
+                    <Icon type="user" />
+                    Delete Customer
+                </Menu.Item>
+                <Menu.Item key="2">
+                    <Icon type="user" />
+                    2nd menu item
+                </Menu.Item>
+                <Menu.Item key="3">
+                    <Icon type="user" />
+                    3rd item
+                </Menu.Item>
+            </Menu>
+        );
+
         return (
             <div className="demo-infinite-container">
                 <InfiniteScroll
@@ -153,10 +183,16 @@ class CustomerList extends React.Component {
                                         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                     }
                                     title={<a href="/customerDetail">{item.name}</a>}
-                                    //title={<a href="https://ant.design">{item.name}</a>}
                                     description={item.ssn}
                                 />
                                 <div>{item.phone}</div>
+                                <div>
+                                    <Dropdown overlay={menu(item.customer_id)} customerId={item.customer_id}>
+                                        <Button>
+                                            Action <Icon type="down" />
+                                        </Button>
+                                    </Dropdown>
+                                </div>
                             </List.Item>
                         )}
                     >
