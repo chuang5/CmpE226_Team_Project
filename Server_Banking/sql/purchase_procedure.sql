@@ -4,9 +4,18 @@ DROP procedure IF EXISTS `purchase`;
 DELIMITER $$
 USE `226team`$$
 CREATE PROCEDURE purchase (IN credit_acct varchar(255), IN check_acct varchar(255), IN num decimal, IN today date)
-BEGIN
+myprocedure:BEGIN
 	DECLARE _rollback BOOL DEFAULT 0;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET _rollback = 1;
+
+	SELECT balance
+	FROM credit_card
+	WHERE card_num = credit_acct
+	into @x;
+	if @x < num then
+		LEAVE myprocedure;
+	end if;
+
 	start transaction;
 		UPDATE credit_card
 		SET balance = balance - num

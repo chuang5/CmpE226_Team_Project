@@ -4,9 +4,18 @@ DROP procedure IF EXISTS `saving_to_checking`;
 DELIMITER $$
 USE `226team`$$
 CREATE PROCEDURE saving_to_checking (IN save_acct varchar(255), IN check_acct varchar(255), IN num decimal, IN today date)
-BEGIN
+myprocedure:BEGIN
 	DECLARE _rollback BOOL DEFAULT 0;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET _rollback = 1;
+
+	SELECT balance
+	FROM saving
+	WHERE account_num = save_acct
+	into @x;
+	if @x < num then
+		LEAVE myprocedure;
+	end if;
+
 	start transaction;
 		UPDATE saving
 		SET balance = balance - num

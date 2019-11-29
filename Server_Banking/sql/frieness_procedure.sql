@@ -4,9 +4,18 @@ DROP procedure IF EXISTS `frieness`;
 DELIMITER $$
 USE `226team`$$
 CREATE PROCEDURE frieness (IN sender_acct varchar(255), IN receiver_acct varchar(255), IN num decimal, IN today date, IN message varchar(255))
-BEGIN
+myprocedure:BEGIN
 	DECLARE _rollback BOOL DEFAULT 0;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET _rollback = 1;
+
+	SELECT balance
+	FROM checking
+	WHERE account_num = sender_acct
+	into @x;
+	if @x < num then
+		LEAVE myprocedure;
+	end if;
+
 	start transaction;
 		UPDATE checking
 		SET balance = balance - num
