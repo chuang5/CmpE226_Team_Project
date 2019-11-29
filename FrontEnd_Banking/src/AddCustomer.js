@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col} from 'antd';
+import {Col, message} from 'antd';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
@@ -83,7 +83,7 @@ class AddCustomer extends Component {
             "phone": this.state.phone,
             "address": this.state.address,
             "password": this.state.password,
-            "agentId": localStorage.getItem("employee"),
+            "employee_id": localStorage.getItem("employee"),
         };
         console.log(payload);
         const callback = this.props.onceAddCustomerSuccess;
@@ -94,10 +94,10 @@ class AddCustomer extends Component {
                     console.log("add customer successfully");
                     //this.props.history.push('/main');
                     //{callback()}
-                    alert("Customer added successfully!");
+                    message.info("Customer added successfully!");
                 } else if (response.data.message === "Customer is already exist") {
                     console.log("Customer is already exist");
-                    alert("Customer is already exist");
+                    message.info("Customer is already exist");
                 }
             })
             .catch(function (error) {
