@@ -72,69 +72,31 @@ exports.signup = function (req, res) {
 exports.addCustomer = function (req, res) {
     console.log("req", req.body);
     const newUser = {
-        "username": req.body.username,
         "name": req.body.name,
         "ssn": req.body.ssn,
         "phone": req.body.phone,
         "address": req.body.address,
-        "password": req.body.password,
         "agent": req.body.employee_id
     }
-    connection.query('SELECT username FROM customers;',
+    connection.query('INSERT INTO customers (name, ssn, phone, address, agent_id)' +
+        'VALUES (?, ?, ?, ?, ?)',
+        [newUser.name, newUser.ssn, newUser.phone,
+        newUser.address, newUser.agent],
         function (error, results) {
-            if (error) {
-                console.log("error occurred", error);
-                res.status(400).json({
-                    failed: "error occurred"
-                })
-            } else {
-                UserExist = false;
-                for (i = 0; i < results.length; i++) {
-                    if (results[i].username == newUser.username) {
-                        UserExist = true;
-                    };
-                }
-                if (!UserExist) {
-                    //add customer
-                    connection.query('INSERT INTO customers (username, name, ssn, phone, address, password)' +
-                        'VALUES (?, ?, ?, ?, ?, SHA1(?))',
-                        [newUser.username, newUser.name, newUser.ssn, newUser.phone,
-                        newUser.address, newUser.password],
-                        function (error, results) {
-                            if (error) { console.log("error occurred", error); }
-                            console.log("new customer ID:", results.insertId);
-                            // new user ID
-                            customer_id = results.insertId;
+            if (error) { console.log("error occurred", error); }
+            console.log("new customer ID:", results.insertId);
+            // new user ID
+            customer_id = results.insertId;
 
-                            // add psw to encryption table
-                            connection.query('SELECT * FROM encryptpsw WHERE encryption=SHA1(?);',
-                                [newUser.password], function (error, results) {
-                                    if (error) { console.log("error occurred", error); }
-                                    if (results.length == 0) {
-                                        connection.query('INSERT INTO encryptpsw (encryption, origin) VALUES (SHA1(?), ?)',
-                                            [newUser.password, newUser.password], function (error, results) {
-                                                if (error) { console.log("error occurred", error); }
-                                                console.log("encrypted paswword added")
-                                            });
-                                    }
-                                })
-
-                            connection.query('INSERT INTO agent (e_id, c_id) VALUES (?, ?)',
-                                [newUser.agent, customer_id],
-                                function (error, results) {
-                                    if (error) { console.log("error occurred", error); }
-                                    console.log("agency added")
-                                });
-                            console.log("customer added")
-                            res.status(200).json({
-                                message: "Customer registered successfully"
-                            });
-                        });
-                } else {
-                    res.status(200).json({
-                        message: "Customer is already exist"
-                    });
-                }
-            }
+            connection.query('INSERT INTO agent (customer_id, agent_id) VALUES (?, ?)',
+                [customer_id, newUser.agent],
+                function (error, results) {
+                    if (error) { console.log("error occurred", error); }
+                    console.log("agency added")
+                });
+            console.log("customer added")
+            res.status(200).json({
+                message: "Customer registered successfully"
+            });
         });
 }
