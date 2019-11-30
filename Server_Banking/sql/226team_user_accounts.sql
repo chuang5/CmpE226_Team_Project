@@ -16,33 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `saving_statement`
+-- Table structure for table `user_accounts`
 --
 
-DROP TABLE IF EXISTS `saving_statement`;
+DROP TABLE IF EXISTS `user_accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `saving_statement` (
-  `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user` int(11) NOT NULL,
-  `user_account` varchar(45) NOT NULL,
-  `partner_account` varchar(45) NOT NULL,
-  `category` varchar(45) NOT NULL,
-  `amount` decimal(11,0) NOT NULL,
-  `date` date NOT NULL,
-  `balance` decimal(11,0) NOT NULL,
-  PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `user_accounts` (
+  `t_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `type` varchar(45) NOT NULL,
+  `account_num` varchar(255) NOT NULL,
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `saving_statement`
+-- Dumping data for table `user_accounts`
 --
 
-LOCK TABLES `saving_statement` WRITE;
-/*!40000 ALTER TABLE `saving_statement` DISABLE KEYS */;
-INSERT INTO `saving_statement` VALUES (1,11,'8263804514133060','5645054488460159','deposite',10000,'2019-11-25',12000),(2,11,'8263804514133060','5645054488460159','withdraw',5000,'2019-11-25',7000),(3,11,'8263804514133060','5645054488460159','withdraw',125,'2019-11-28',6875);
-/*!40000 ALTER TABLE `saving_statement` ENABLE KEYS */;
+LOCK TABLES `user_accounts` WRITE;
+/*!40000 ALTER TABLE `user_accounts` DISABLE KEYS */;
+INSERT INTO `user_accounts` VALUES (1,18,'cindy','saving','7337314148203031'),(2,18,'cindy','checking','653519912587032'),(3,18,'cindy','credit','4322165490462836'),(4,11,'001','credit','4204889850164311'),(5,11,'001','checking','5645054488460159'),(6,11,'001','saving','8263804514133060');
+/*!40000 ALTER TABLE `user_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-29 20:22:38
+-- Dump completed on 2019-11-29 20:22:37
