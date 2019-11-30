@@ -8,6 +8,7 @@ import AddCustomer from "./AddCustomer";
 import MyAlert from "./MyAlert";
 import DeleteCustomer from "./DeleteCustomer";
 import OpenAccount from "./OpenAccount";
+import Transaction from "./Transaction";
 
 class Main extends React.Component {
 
@@ -32,6 +33,10 @@ class Main extends React.Component {
       } else if (this.state.key === '7') {
 
           return <OpenAccount/>
+
+      } else if (this.state.key === '8') {
+
+          return <Transaction/>
 
       }
   }
@@ -59,6 +64,11 @@ class Main extends React.Component {
           case "7":
               this.setState(
                   {key: '7'}
+              );
+              break;
+          case "8":
+              this.setState(
+                  {key: '8'}
               );
               break;
       }
