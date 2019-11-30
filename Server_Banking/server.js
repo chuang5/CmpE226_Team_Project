@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const login = require('./routes/loginRoutes');
 const addUser = require('./routes/addUserRoutes');
 const addAccount = require('./routes/addAccountRoutes');
-const updateAccount = require('./routes/updateAccountRoutes');
+const updateAccount = require('./routes/updateAccountRoute');
 const getCustomersList = require('./routes/getCustomersList');
 const getCustomerInfo = require('./routes/getCustomerInfo');
 const deleteCustomer = require('./routes/deleteCustomerRoutes');
@@ -63,6 +63,7 @@ router.put('/purchase', updateAccount.purchase);
 router.post('/deleteCustomer', deleteCustomer.deleteCustomer);
 router.post('/getCustomersList', getCustomersList.getCustomersList);
 router.post('/getCustomerInfo', getCustomerInfo.getCustomerInfo);
+router.post('/getCustomersAccounts', getCustomersList.getCustomersAccounts);
 app.use('/', router);
 app.set('view engine', 'ejs');
 app.listen(5000, () => {
