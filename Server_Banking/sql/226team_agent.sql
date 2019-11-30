@@ -16,29 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `agent`
+-- Temporary view structure for view `agent`
 --
 
 DROP TABLE IF EXISTS `agent`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50001 DROP VIEW IF EXISTS `agent`*/;
+SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `agent` (
-  `a_id` int(11) NOT NULL AUTO_INCREMENT,
-  `e_id` int(11) NOT NULL,
-  `c_id` int(11) NOT NULL,
-  PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50001 CREATE VIEW `agent` AS SELECT 
+ 1 AS `customer_id`,
+ 1 AS `agent_id`*/;
+SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agent`
+-- Final view structure for view `agent`
 --
 
-LOCK TABLES `agent` WRITE;
-/*!40000 ALTER TABLE `agent` DISABLE KEYS */;
-INSERT INTO `agent` VALUES (1,1,11),(4,3,16),(5,4,17),(6,4,18);
-/*!40000 ALTER TABLE `agent` ENABLE KEYS */;
-UNLOCK TABLES;
+/*!50001 DROP VIEW IF EXISTS `agent`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `agent` AS select `customers`.`customer_id` AS `customer_id`,`customers`.`agent_id` AS `agent_id` from `customers` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-29 20:22:38
+-- Dump completed on 2019-11-30 13:33:32

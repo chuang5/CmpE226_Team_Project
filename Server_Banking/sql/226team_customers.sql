@@ -24,14 +24,13 @@ DROP TABLE IF EXISTS `customers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customers` (
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) NOT NULL,
   `name` varchar(40) NOT NULL,
   `ssn` varchar(40) NOT NULL,
   `phone` varchar(40) NOT NULL,
   `address` varchar(40) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `agent_id` int(11) NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +39,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'admin','admin','12345678','0000000000','123 1st street','d033e22ae348aeb5660fc2140aec35850c4da997'),(11,'001','001','12345678','1234567890','123 street','e193a01ecf8d30ad0affefd332ce934e32ffce72'),(16,'005','005','12345675','1234567890','123 street','de1f53b6fbc3fecd35b0bbc963e21902a149e5e3'),(17,'wayne','wayne','13245639','8016573318','876 2st ave.','b9526479d8e75eec48092197447318d86d2194ec'),(18,'cindy','cindy','83245639','8016573318','873 2st Pl.','08419f95f54ba7772a69a52ce1114111bf996b10');
+INSERT INTO `customers` VALUES (11,'001','12345678','1234567890','123 street',1),(16,'005','12345675','1234567890','123 street',3),(17,'wayne','13245639','8016573318','876 2st ave.',4),(18,'cindy','83245639','8016573318','873 2st Pl.',4),(20,'brian','83243639','8016523318','873 7th Pl.',1);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-29 20:22:37
+-- Dump completed on 2019-11-30 13:33:30

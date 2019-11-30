@@ -27,7 +27,7 @@ exports.getCustomerInfo = function (req, res) {
                 customerInfo = customerInfo.concat({ "info": result });
             }
         });
-    connection.query('SELECT * FROM agent WHERE c_id = ?', [customer_id],
+    connection.query('SELECT * FROM agent WHERE customer_id = ?', [customer_id],
         function (error, result) {
             if (error) {
                 console.log("error occurred", error);
