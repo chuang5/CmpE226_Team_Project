@@ -25,7 +25,7 @@ myprocedure:BEGIN
 		FROM checking
         WHERE account_num = check_acct;
 		UPDATE credit_card
-		SET balance = balance + num
+		SET balance = balance - num
 		WHERE card_num = credit_acct;
 		INSERT INTO credit_statement (user, user_account, partner_account, category, amount, date, balance) 
 		SELECT customer, card_num, check_acct, 'payment', num, today, balance
