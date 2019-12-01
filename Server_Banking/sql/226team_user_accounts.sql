@@ -23,12 +23,11 @@ DROP TABLE IF EXISTS `user_accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_accounts` (
-  `t_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer` int(11) NOT NULL,
-  `type` varchar(45) NOT NULL,
   `account_num` varchar(255) NOT NULL,
-  PRIMARY KEY (`t_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `type` varchar(45) NOT NULL,
+  `customer` int(11) NOT NULL,
+  PRIMARY KEY (`account_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +36,7 @@ CREATE TABLE `user_accounts` (
 
 LOCK TABLES `user_accounts` WRITE;
 /*!40000 ALTER TABLE `user_accounts` DISABLE KEYS */;
-INSERT INTO `user_accounts` VALUES (1,18,'saving','7337314148203031'),(2,18,'checking','653519912587032'),(3,18,'credit','4322165490462836'),(4,11,'credit','4204889850164311'),(5,11,'checking','5645054488460159'),(6,11,'saving','8263804514133060'),(7,21,'credit','4121779565347903');
+INSERT INTO `user_accounts` VALUES ('4121779565347903','credit',21),('4204889850164311','credit',11),('4322165490462836','credit',18),('5645054488460159','checking',11),('653519912587032','checking',18),('7337314148203031','saving',18),('7397699068833947','saving',22),('7545405479941494','checking',21),('8263804514133060','saving',11);
 /*!40000 ALTER TABLE `user_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-30 17:14:06
+-- Dump completed on 2019-11-30 17:32:21
