@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS `credit_card`;
 CREATE TABLE `credit_card` (
   `card_num` varchar(255) NOT NULL,
   `customer` int(11) NOT NULL,
-  `name_on_card` varchar(45) NOT NULL,
   `due_date` varchar(45) NOT NULL,
   `state_balance` decimal(11,0) NOT NULL,
   `balance` decimal(11,0) NOT NULL,
@@ -40,7 +39,7 @@ CREATE TABLE `credit_card` (
 
 LOCK TABLES `credit_card` WRITE;
 /*!40000 ALTER TABLE `credit_card` DISABLE KEYS */;
-INSERT INTO `credit_card` VALUES ('4204889850164311',11,'001','11/25/2019',0,0,'11/2024'),('4322165490462836',18,'cindy','12/29/2019',0,0,'11/2024');
+INSERT INTO `credit_card` VALUES ('4121779565347903',21,'12/30/2019',0,0,'11/2024'),('4204889850164311',11,'11/25/2019',0,0,'11/2024'),('4322165490462836',18,'12/29/2019',0,0,'11/2024');
 /*!40000 ALTER TABLE `credit_card` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-30 13:33:31
+-- Dump completed on 2019-11-30 17:14:06

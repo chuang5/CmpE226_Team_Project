@@ -37,33 +37,24 @@ exports.addCreditCard = function (req, res) {
 
     }
     console.log(newCard.customer)
-    connection.query('SELECT * FROM customers WHERE customer_id=?;', [newCard.customer],
+
+    connection.query('INSERT INTO credit_card (card_num, customer,' +
+        ' due_date, state_balance, balance, exp) VALUES (?, ?, ?, ?, ?, ?)',
+        [newCard.card_num, newCard.customer, newCard.due_date,
+        newCard.state_balance, newCard.balance, newCard.exp],
         function (error, results) {
-            if (error) {
-                console.log("error occurred", error);
-                res.status(400).json({
-                    failed: "error occurred"
-                })
-            } else {
-                connection.query('INSERT INTO credit_card (card_num, customer, name_on_card,' +
-                    ' due_date, state_balance, balance, exp) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                    [newCard.card_num, results[0].customer_id, results[0].name, newCard.due_date,
-                    newCard.state_balance, newCard.balance, newCard.exp],
-                    function (error, results) {
-                        if (error) { console.log("error occurred", error); }
-                        console.log("card added")
+            if (error) { console.log("error occurred", error); }
+            console.log("card added")
+            connection.query('INSERT INTO user_accounts (customer, type, ' +
+                'account_num) VALUES (?, ?, ?)',
+                [newCard.customer, 'credit', newCard.card_num],
+                function (error, results) {
+                    if (error) { console.log("error occurred", error); }
+                    console.log("user_accounts added")
+                    res.status(200).json({
+                        success: "Credit card applied successfully"
                     });
-                connection.query('INSERT INTO user_accounts (customer, name, type, ' +
-                    'account_num) VALUES (?, ?, ?, ?)',
-                    [results[0].customer_id, results[0].name, 'credit', newCard.card_num],
-                    function (error, results) {
-                        if (error) { console.log("error occurred", error); }
-                        console.log("user_accounts added")
-                    });
-                res.status(200).json({
-                    success: "Credit card applied successfully"
                 });
-            }
         });
 }
 
