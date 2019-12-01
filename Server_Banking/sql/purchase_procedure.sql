@@ -8,17 +8,9 @@ myprocedure:BEGIN
 	DECLARE _rollback BOOL DEFAULT 0;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET _rollback = 1;
 
-	SELECT balance
-	FROM credit_card
-	WHERE card_num = credit_acct
-	into @x;
-	if @x < num then
-		LEAVE myprocedure;
-	end if;
-
 	start transaction;
 		UPDATE credit_card
-		SET balance = balance - num
+		SET balance = balance + num
 		WHERE card_num = credit_acct;
 		INSERT INTO credit_statement (user, user_account, partner_account, category, amount, date, balance) 
 		SELECT customer, card_num, check_acct, 'purchase', num, today, balance
@@ -28,7 +20,7 @@ myprocedure:BEGIN
 		SET balance = balance + num
 		WHERE account_num = check_acct;
         INSERT INTO checking_statement (user, user_account, partner_account, category, amount, date, balance) 
-		SELECT customer, account_num, credit_acct, 'purchase', num, today, balance
+		SELECT customer, account_num, credit_acct, 'revenue', num, today, balance
 		FROM checking
         WHERE account_num = check_acct;
 	IF _rollback = 1 THEN
