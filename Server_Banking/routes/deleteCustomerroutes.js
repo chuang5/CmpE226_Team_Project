@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 });
 
 exports.deleteCustomer = function(req,res){
-    console.log("req",req.body);
+    console.log("deleteCustomer: req",req.body);
     const customer_id = req.body.customer_id;
 
     connection.query('DELETE FROM customers WHERE customer_id = ?', customer_id, function (error, results) {
@@ -26,7 +26,7 @@ exports.deleteCustomer = function(req,res){
             console.log('The solution is: ', results);
         }
     });
-    connection.query('DELETE FROM agent WHERE c_id = ?', customer_id, function (error, results) {
+    connection.query('DELETE FROM agent WHERE customer_id = ?', customer_id, function (error, results) {
         if (error) {
             console.log("error occurred",error);
             res.status(400).json({
