@@ -115,7 +115,6 @@ exports.purchase = function (req, res) {
                 })
             } else {
                 len = results.length;
-                console.log(len)
                 if(len==0) {
                     res.status(400).json({
                         failed: "sender account not exist"
@@ -129,9 +128,7 @@ exports.purchase = function (req, res) {
                                     failed: "error occurred"
                                 })
                             } else {
-                                
                                 len = results.length;
-                                console.log(len)
                                 if(len==0) {
                                     res.status(400).json({
                                         failed: "receiver account not exist"
