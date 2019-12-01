@@ -5,7 +5,107 @@
 [32m[nodemon] starting `node server.js`[39m
 Server is running on port: 5000
 Database is connected ...
+login: req { username: '002', password: '002' }
+error occurred { Error: ER_BAD_FIELD_ERROR: Unknown column 'username' in 'where clause'
+    at Query.Sequence._packetToError (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\sequences\Sequence.js:47:14)
+    at Query.ErrorPacket (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\sequences\Query.js:77:18)
+    at Protocol._parsePacket (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\Protocol.js:291:23)
+    at Parser._parsePacket (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\Parser.js:433:10)
+    at Parser.write (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\Parser.js:43:10)
+    at Protocol.write (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\Protocol.js:38:16)
+    at Socket.<anonymous> (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\Connection.js:91:28)
+    at Socket.<anonymous> (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\Connection.js:525:10)
+    at Socket.emit (events.js:189:13)
+    at addChunk (_stream_readable.js:284:12)
+    --------------------
+    at Protocol._enqueue (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\protocol\Protocol.js:144:48)
+    at Connection.query (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\mysql\lib\Connection.js:201:25)
+    at exports.login (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\routes\loginRoutes.js:17:16)
+    at Layer.handle [as handle_request] (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\kles9\Desktop\CmpE226\CmpE226_Team_Project\Server_Banking\node_modules\express\lib\router\index.js:275:10)
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: 'Unknown column \'username\' in \'where clause\'',
+  sqlState: '42S22',
+  index: 0,
+  sql: 'SELECT * FROM customers WHERE username = \'002\'' }
 [32m[nodemon] restarting due to changes...[39m
 [32m[nodemon] starting `node server.js`[39m
 Server is running on port: 5000
 Database is connected ...
+login: req { username: '002', password: '002' }
+getCustomersList: req { employee_id: '2' }
+addCustomer: req { username: '',
+  name: 'appl',
+  ssn: '01004789',
+  phone: '8008008000',
+  address: '411 4th street',
+  password: '',
+  employee_id: 2 }
+new customer ID: 23
+customer added
+deleteCustomer: req { customer_id: '23' }
+The solution is:  OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+The solution is:  OkPacket {
+  fieldCount: 0,
+  affectedRows: 0,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+The solution is:  OkPacket {
+  fieldCount: 0,
+  affectedRows: 0,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+The solution is:  OkPacket {
+  fieldCount: 0,
+  affectedRows: 0,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+The solution is:  OkPacket {
+  fieldCount: 0,
+  affectedRows: 0,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+addChecking: req { customer_id: '20', balance: 510 }
+user_accounts added
+frieness: req { sender: '5645054488460159',
+  receiver: '4885963868459056',
+  amount: 150 }
+frieness: req { sender: '5645054488460159',
+  receiver: '4885963868459056',
+  amount: 150 }
+frieness: req { sender: '5645054488460159',
+  receiver: '4885963868459056',
+  amount: 150 }
+getCustomersList: req { employee_id: '2' }
+getCustomersList: req { employee_id: '2' }
+getCustomersList: req { employee_id: '2' }
