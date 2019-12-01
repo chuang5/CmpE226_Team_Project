@@ -37,6 +37,7 @@ connection.query('SELECT * FROM credit_card', function (err, results) {
     }
 })
 
+
 exports.payCreditCard = function (req, res) {
     console.log("req", req.body);
 
@@ -46,7 +47,7 @@ exports.payCreditCard = function (req, res) {
         amount: req.body.amount
     }
 
-    connection.query('CALL pay_credit_card(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+    connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -54,23 +55,58 @@ exports.payCreditCard = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                res.status(200).json({
-                    success: "Transaction successed"
-                });
+                len = results.length;
+                if(len==0) {
+                    res.status(400).json({
+                        failed: "sender account not exist"
+                    })
+                } else {
+                        connection.query('SELECT * FROM credit_card WHERE card_num=?', [transaction.receiver],
+                        function (error, results) {
+                            if (error) {
+                                console.log("error occurred", error);
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                len = results.length;
+                                if(len==0) {
+                                    res.status(400).json({
+                                        failed: "receiver account not exist"
+                                    })
+                                } else {
+                                        connection.query('CALL pay_credit_card(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+                                        function (error, results) {
+                                            if (error) {
+                                                console.log("error occurred", error);
+                                                res.status(400).json({
+                                                    failed: "error occurred"
+                                                })
+                                            } else {
+                                                res.status(200).json({
+                                                    success: "Transaction successed"
+                                                });
+                                            }
+                                        })
+                                }
+                            }
+                    })
+                }
             }
         })
 }
+
 
 exports.purchase = function (req, res) {
     console.log("req", req.body);
 
     const transaction = {
-        sender: req.body.sender, // credir card
-        receiver: req.body.receiver, // checking account
+        sender: req.body.sender, 
+        receiver: req.body.receiver, 
         amount: req.body.amount
     }
 
-    connection.query('CALL purchase(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+    connection.query('SELECT * FROM credit_card WHERE card_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -78,23 +114,58 @@ exports.purchase = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                res.status(200).json({
-                    success: "Transaction successed"
-                });
+                len = results.length;
+                if(len==0) {
+                    res.status(400).json({
+                        failed: "sender account not exist"
+                    })
+                } else {
+                        connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.receiver],
+                        function (error, results) {
+                            if (error) {
+                                console.log("error occurred", error);
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                len = results.length;
+                                if(len==0) {
+                                    res.status(400).json({
+                                        failed: "receiver account not exist"
+                                    })
+                                } else {
+                                        connection.query('CALL purchase(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+                                        function (error, results) {
+                                            if (error) {
+                                                console.log("error occurred", error);
+                                                res.status(400).json({
+                                                    failed: "error occurred"
+                                                })
+                                            } else {
+                                                res.status(200).json({
+                                                    success: "Transaction successed"
+                                                });
+                                            }
+                                        })
+                                }
+                            }
+                    })
+                }
             }
         })
 }
+
 
 exports.toSaving = function (req, res) {
     console.log("req", req.body);
 
     const transaction = {
-        sender: req.body.sender, // checking account
-        receiver: req.body.receiver, // saving account
+        sender: req.body.sender, 
+        receiver: req.body.receiver, 
         amount: req.body.amount
     }
 
-    connection.query('CALL checking_to_saving(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+    connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -102,23 +173,58 @@ exports.toSaving = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                res.status(200).json({
-                    success: "Transaction successed"
-                });
+                len = results.length;
+                if(len==0) {
+                    res.status(400).json({
+                        failed: "sender account not exist"
+                    })
+                } else {
+                        connection.query('SELECT * FROM saving WHERE account_num=?', [transaction.receiver],
+                        function (error, results) {
+                            if (error) {
+                                console.log("error occurred", error);
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                len = results.length;
+                                if(len==0) {
+                                    res.status(400).json({
+                                        failed: "receiver account not exist"
+                                    })
+                                } else {
+                                        connection.query('CALL checking_to_saving(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+                                        function (error, results) {
+                                            if (error) {
+                                                console.log("error occurred", error);
+                                                res.status(400).json({
+                                                    failed: "error occurred"
+                                                })
+                                            } else {
+                                                res.status(200).json({
+                                                    success: "Transaction successed"
+                                                });
+                                            }
+                                        })
+                                }
+                            }
+                    })
+                }
             }
         })
 }
+
 
 exports.fromSaving = function (req, res) {
     console.log("req", req.body);
 
     const transaction = {
-        sender: req.body.sender, // saving account
-        receiver: req.body.receiver, // checking account
+        sender: req.body.sender, 
+        receiver: req.body.receiver, 
         amount: req.body.amount
     }
 
-    connection.query('CALL saving_to_checking(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+    connection.query('SELECT * FROM saving WHERE account_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -126,24 +232,59 @@ exports.fromSaving = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                res.status(200).json({
-                    success: "Transaction successed"
-                });
+                len = results.length;
+                if(len==0) {
+                    res.status(400).json({
+                        failed: "sender account not exist"
+                    })
+                } else {
+                        connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.receiver],
+                        function (error, results) {
+                            if (error) {
+                                console.log("error occurred", error);
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                len = results.length;
+                                if(len==0) {
+                                    res.status(400).json({
+                                        failed: "receiver account not exist"
+                                    })
+                                } else {
+                                        connection.query('CALL saving_to_checking(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
+                                        function (error, results) {
+                                            if (error) {
+                                                console.log("error occurred", error);
+                                                res.status(400).json({
+                                                    failed: "error occurred"
+                                                })
+                                            } else {
+                                                res.status(200).json({
+                                                    success: "Transaction successed"
+                                                });
+                                            }
+                                        })
+                                }
+                            }
+                    })
+                }
             }
         })
 }
+
 
 exports.frieness = function (req, res) {
     console.log("req", req.body);
 
     const transaction = {
-        sender: req.body.sender,
-        receiver: req.body.receiver,
+        sender: req.body.sender, 
+        receiver: req.body.receiver, 
         amount: req.body.amount,
         description: req.body.description
     }
 
-    connection.query('CALL frieness(?, ?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date(), transaction.description],
+    connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.sender],
         function (error, results) {
             if (error) {
                 console.log("error occurred", error);
@@ -151,9 +292,43 @@ exports.frieness = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                res.status(200).json({
-                    success: "Transaction successed"
-                });
+                len = results.length;
+                if(len==0) {
+                    res.status(400).json({
+                        failed: "sender account not exist"
+                    })
+                } else {
+                        connection.query('SELECT * FROM checking WHERE account_num=?', [transaction.receiver],
+                        function (error, results) {
+                            if (error) {
+                                console.log("error occurred", error);
+                                res.status(400).json({
+                                    failed: "error occurred"
+                                })
+                            } else {
+                                len = results.length;
+                                if(len==0) {
+                                    res.status(400).json({
+                                        failed: "receiver account not exist"
+                                    })
+                                } else {
+                                        connection.query('CALL frieness(?, ?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date(), transaction.description],
+                                        function (error, results) {
+                                            if (error) {
+                                                console.log("error occurred", error);
+                                                res.status(400).json({
+                                                    failed: "error occurred"
+                                                })
+                                            } else {
+                                                res.status(200).json({
+                                                    success: "Transaction successed"
+                                                });
+                                            }
+                                        })
+                                }
+                            }
+                    })
+                }
             }
         })
 }
