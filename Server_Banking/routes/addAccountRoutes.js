@@ -29,7 +29,6 @@ exports.addCreditCard = function (req, res) {
     const newCard = {
         card_num: card_num,
         customer: req.body.customer_id,
-        // name_on_card: req.body.name,
         due_date: due_date,
         state_balance: 0,
         balance: 0,
@@ -77,26 +76,16 @@ exports.addSaving = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                connection.query('SELECT * FROM customers WHERE customer_id=?;', [newSaving.customer],
+                connection.query('INSERT INTO user_accounts (account_num, type, customer)' +
+                    'VALUES (?, ?, ?)',
+                    [newSaving.account_num, 'saving', newSaving.customer],
                     function (error, results) {
-                        if (error) {
-                            console.log("error occurred", error);
-                            res.status(400).json({
-                                failed: "error occurred"
-                            })
-                        } else {
-                            connection.query('INSERT INTO user_accounts (customer, name, type, ' +
-                                'account_num) VALUES (?, ?, ?, ?)',
-                                [results[0].customer_id, results[0].name, 'saving', newSaving.account_num],
-                                function (error, results) {
-                                    if (error) { console.log("error occurred", error); }
-                                    console.log("user_accounts added")
-                                });
-                        }
+                        if (error) { console.log("error occurred", error); }
+                        console.log("user_accounts added")
+                        res.status(200).json({
+                            success: "Saving applied successfully"
+                        });
                     });
-                res.status(200).json({
-                    success: "Saving applied successfully"
-                });
             }
         });
 }
@@ -120,26 +109,16 @@ exports.addChecking = function (req, res) {
                     failed: "error occurred"
                 })
             } else {
-                connection.query('SELECT * FROM customers WHERE customer_id=?;', [newChecking.customer],
+                connection.query('INSERT INTO user_accounts (account_num, type, customer)' +
+                    'VALUES (?, ?, ?)',
+                    [newChecking.account_num, 'checking', newChecking.customer],
                     function (error, results) {
-                        if (error) {
-                            console.log("error occurred", error);
-                            res.status(400).json({
-                                failed: "error occurred"
-                            })
-                        } else {
-                            connection.query('INSERT INTO user_accounts (customer, name, type, ' +
-                                'account_num) VALUES (?, ?, ?, ?)',
-                                [results[0].customer_id, results[0].name, 'checking', newChecking.account_num],
-                                function (error, results) {
-                                    if (error) { console.log("error occurred", error); }
-                                    console.log("user_accounts added")
-                                });
-                        }
+                        if (error) { console.log("error occurred", error); }
+                        console.log("user_accounts added")
+                        res.status(200).json({
+                            success: "Checking applied successfully"
+                        });
                     });
-                res.status(200).json({
-                    success: "Checking applied successfully"
-                });
             }
         });
 }
