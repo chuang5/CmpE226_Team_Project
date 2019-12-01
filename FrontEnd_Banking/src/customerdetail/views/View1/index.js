@@ -21,8 +21,8 @@ export default class View1 extends Component {
                     </div>
                     <div className={'info-view'}>
                         <div>name: {user.name}</div>
-                        <div>gender: {user.gender}</div>
-                        <div>age: {user.age}</div>
+                        <div>user id: {user.customer_id}</div>
+                        {/*<div>age: {user.age}</div>*/}
                     </div>
                 </div>
             </div>

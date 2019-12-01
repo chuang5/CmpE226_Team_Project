@@ -12,7 +12,7 @@ class Entry extends Component {
                     <Switch>
                         <Route exact path="/" component={App} />
                         <Route path="/main" component={Main} />
-                        <Route path="/customerDetail" component={CustomerDetail} />
+                        <Route path="/customerDetail/:customer_id" component={CustomerDetail} />
                     </Switch>
                 </div>
             </Router>
