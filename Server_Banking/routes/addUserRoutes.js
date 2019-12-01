@@ -70,7 +70,7 @@ exports.signup = function (req, res) {
 }
 
 exports.addCustomer = function (req, res) {
-    console.log(": req", req.body);
+    console.log("addCustomer: req", req.body);
     const newUser = {
         "name": req.body.name,
         "ssn": req.body.ssn,
