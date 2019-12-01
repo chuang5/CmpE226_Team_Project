@@ -26,7 +26,7 @@ exports.deleteCustomer = function(req,res){
             console.log('The solution is: ', results);
         }
     });
-    connection.query('DELETE FROM agent WHERE c_id = ?', customer_id, function (error, results) {
+    connection.query('DELETE FROM agent WHERE customer_id = ?', customer_id, function (error, results) {
         if (error) {
             console.log("error occurred",error);
             res.status(400).json({
