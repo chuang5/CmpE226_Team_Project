@@ -8,7 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Entry from "./Entry";
 import Main from './Main';
-import CustomerDetail from "./CustomerDetail";
+import CustomerDetail from "./CustomerDetail_1";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 ReactDOM.render((

@@ -1,89 +1,196 @@
-// import React, {Component} from 'react';
-// import { Layout } from 'antd';
-// const { Header, Footer, Sider, Content } = Layout;
-//
-// class customerdetail extends Component {
-//     render() {
-//         return (
-//
-//             <Layout style={{height:900}}>
-//                 <Sider width={300}>
-//                     <Content style={{height:200}}>
-//                         View1
-//                     </Content>
-//                     <Content style={{height:300}}>
-//                         View2
-//                     </Content>
-//                     <Content style={{height:400}}>
-//                         View3
-//                     </Content>
-//                 </Sider>
-//                 <Layout>
-//                     <Content style={{height:300}}>
-//                         View4
-//                     </Content>
-//                     <Layout style={{height:600}}>
-//                         <Content>
-//                             View5
-//                         </Content>
-//                         <Sider width={300}>
-//                             View6
-//                         </Sider>
-//                     </Layout>
-//                 </Layout>
-//             </Layout>
-//
-//         );
-//     }
-// }
-//
-// export default customerdetail;
-import React, { Component } from 'react';
-import data from './customerdetail/data';
-import { Layout } from 'antd';
-import View1 from './customerdetail/views/View1';
-import View2 from './customerdetail/views/View2';
-import View3 from './customerdetail/views/View3';
-import View4 from './customerdetail/views/View4';
-import View5 from './customerdetail/views/View5';
-import View6 from './customerdetail/views/View6';
-import './dashboard.css';
-
+import React, {Component} from 'react';
+import axios from "axios";
+import View1 from "./customerdetail/views/View1";
+import View2 from "./customerdetail/views/View2";
+import View3 from "./customerdetail/views/View3";
+import {Layout, Tag, Table} from "antd";
+import View4 from "./customerdetail/views/View4";
+import View5 from "./customerdetail/views/View5";
+import View6 from "./customerdetail/views/View6";
+import data from "./customerdetail/data";
 const { Sider, Content, Footer } = Layout;
 
-export default class CustomerDetails extends Component {
+const fakeDataUrl = 'http://localhost:5000/getCustomerInfo';
+
+class CustomerDetail extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedUser: data[0],
-            greaterThenAge: 0,
-            includedGender: ['Male', 'Female','Unknown'],
+            selectedUser: {},
+            data:[],
+            transactionData: []
         }
     }
 
-    changeSelectUser = value => {
-        this.setState({
-            selectedUser: value
-        })
+    componentDidMount() {
+
+        let payload = {
+            "customer_id": this.props.match.params.customer_id
+        };
+        axios.post(fakeDataUrl, payload)
+            .then((response) => {
+                console.log(response.data.customerInfo[8]);
+                let item1 = {
+                    key: '1',
+                    type: 'Checking',
+                    balance: (response.data.customerInfo[6].checking_accounts.length == 0 ? 0 : response.data.customerInfo[6].checking_accounts[0].balance),
+                    tags: ['Checking']
+                };
+
+                let item2 = {
+                    key: '2',
+                    type: 'Saving',
+                    balance: (response.data.customerInfo[7].saving_accounts.length == 0 ? 0 : response.data.customerInfo[7].saving_accounts[0].balance),
+                    tags: ['Saving']
+                };
+
+                let item3 = {
+                    key: '3',
+                    type: 'Credit Card',
+                    balance: (response.data.customerInfo[8].credit_cards.length == 0 ? 0 : response.data.customerInfo[8].credit_cards[0].balance),
+                    tags: ['Credit Card']
+                };
+                let temData = [];
+                let tempTransactionDataList = [];
+                this.appendTransactionRecord(response.data.customerInfo, tempTransactionDataList);
+
+                temData.push(item1, item2, item3);
+                console.log(temData);
+                this.setState(
+                    {
+                            data: temData,
+                            selectedUser: response.data.customerInfo[0].info[0],
+                            transactionData: tempTransactionDataList
+                    }
+                );
+            });
+
     }
 
-    changeGreaterThenAge = value => {
-        this.setState({
-            greaterThenAge: value
-        })
-    }
+    appendTransactionRecord = (item, list) => {
+        let key = 1;
+        let checkingStatements = item[2].checking_statement;
+        let savingStatements = item[3].saving_statement;
+        //let credit
 
-    changeIncludedGender = value => {
-        this.setState({
-            includedGender: value
-        })
-    }
+        checkingStatements.map(checkingStatement => {
+            list.push(
+                {
+                    key: key++,
+                    tags: ['Checking'],
+                    from: checkingStatement.user_account,
+                    to: checkingStatement.partner_account,
+                    amount: checkingStatement.amount,
+                    category: checkingStatement.category,
+                    date: checkingStatement.date
+                }
+            );
+        });
+
+        savingStatements.map(savingStatement => {
+            list.push(
+                {
+                    key: key++,
+                    tags: ['Saving'],
+                    from: savingStatement.user_account,
+                    to: savingStatement.partner_account,
+                    amount: savingStatement.amount,
+                    category: savingStatement.category,
+                    date: savingStatement.date
+                }
+            );
+        });
+
+    };
 
     render() {
-        const {selectedUser, greaterThenAge, includedGender} = this.state;
-        const filteredData = data.filter(user=>includedGender.indexOf(user.gender)!==-1)
-            .filter(user=>user.age>greaterThenAge);
+
+        //console.log(this.props.match.params.customer_id);
+        const {selectedUser} = this.state;
+
+        const columns = [
+            {
+                title: 'Account Type',
+                dataIndex: 'type',
+                key: 'type',
+                render: text => <a>{text}</a>,
+            },
+            {
+                title: 'Balance',
+                dataIndex: 'balance',
+                key: 'balance',
+            },
+            {
+                title: 'Tags',
+                key: 'tags',
+                dataIndex: 'tags',
+                render: tags => (
+                    <span>
+                        {tags.map(tag => {
+                            let color = tag.length > 5 ? 'geekblue' : 'green';
+                            if (tag === 'loser') {
+                                color = 'volcano';
+                            }
+                            return (
+                                <Tag color={color} key={tag}>
+                                    {tag.toUpperCase()}
+                                </Tag>
+                            );
+                        })}
+                        </span>
+                ),
+            }
+        ];
+
+        const colum2 = [
+            {
+                title: "Tags",
+                dataIndex: "tags",
+                key: 'tags',
+                render: tags => (
+                    <span>
+                        {tags.map(tag => {
+                            let color = tag.length > 5 ? 'geekblue' : 'green';
+                            if (tag === 'loser') {
+                                color = 'volcano';
+                            }
+                            return (
+                                <Tag color={color} key={tag}>
+                                    {tag.toUpperCase()}
+                                </Tag>
+                            );
+                        })}
+                        </span>
+                ),
+            },
+            {
+                title: 'From',
+                dataIndex: 'from',
+                key: 'from'
+            },
+            {
+                title: 'To',
+                dataIndex: 'to',
+                key: 'to'
+            },
+            {
+                title: 'Amount',
+                dataIndex: 'amount',
+                key: 'amount'
+            },
+            {
+                title: 'Category',
+                dataIndex: 'category',
+                key: 'category'
+            },
+            {
+                title: 'Date',
+                dataIndex: 'date',
+                key: 'date'
+            },
+        ];
+
         return (
             <div>
                 <Layout style={{ height: 920 }}>
@@ -92,38 +199,30 @@ export default class CustomerDetails extends Component {
                             <View1 user={selectedUser}/>
                         </Content>
                         <Content style={{ height: 300 }}>
-                            <View2 data={filteredData}/>
+
                         </Content>
-                        <Content style={{ height: 400 }}>
-                            <View3
-                                changeGreaterThenAge={this.changeGreaterThenAge}
-                                changeIncludedGender={this.changeIncludedGender}
-                            />
-                        </Content>
+                        {/*<Content style={{ height: 400 }}>*/}
+                        {/*    <View3*/}
+                        {/*        changeGreaterThenAge={this.changeGreaterThenAge}*/}
+                        {/*        changeIncludedGender={this.changeIncludedGender}*/}
+                        {/*    />*/}
+                        {/*</Content>*/}
                     </Sider>
                     <Layout>
                         <Content style={{ height: 300 }}>
-                            <View4 user={selectedUser}/>
+                            <Table columns={columns} dataSource={this.state.data} />
                         </Content>
                         <Layout style={{ height: 600 }}>
                             <Content>
-                                <View5 data={filteredData}/>
+                                <Table columns={colum2} dataSource={this.state.transactionData} />
                             </Content>
-                            <Sider width={300} style={{backgroundColor:'#eee'}}>
-                                <View6 data={filteredData} changeSelectUser={this.changeSelectUser}/>
-                            </Sider>
                         </Layout>
                     </Layout>
                 </Layout>
-                <Layout>
-                    <Footer style={{ height: 20 }}>
-                        <div style={{marginTop: -10}}>
-                            Source Code <a href='https://github.com/sdq/react-d3-dashboard'>https://github.com/sdq/react-d3-dashboard</a>;
-                            Author <a href='https://sdq.ai'>sdq</a>;
-                        </div>
-                    </Footer>
-                </Layout>
+                {/*{this.props.match.params.customer_id}*/}
             </div>
-        )
+        );
     }
 }
+
+export default CustomerDetail;

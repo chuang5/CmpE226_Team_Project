@@ -16,7 +16,7 @@ class Transaction extends Component {
             receiver_type:'',
             amount:0,
             isFrieness: false,
-            discription:'',
+            description:'',
             transaction_type:1
         }
     }
@@ -135,7 +135,7 @@ class Transaction extends Component {
                         <Checkbox onChange={this.onChange}>This is Frieness Transaction</Checkbox>
                         <br/>
                         <br/>
-                        {this.state.isFrieness && <Input placeholder="Description" onChange = {(event,newValue) => this.setState({discription:newValue})}/>}
+                        {this.state.isFrieness && <Input placeholder="Description" onChange = {(event,newValue) => this.setState({description:newValue})}/>}
                         <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick.bind(this)(event)}/>
                     </div>
                 </MuiThemeProvider>
@@ -149,7 +149,8 @@ class Transaction extends Component {
         let payload = {
             "sender": this.state.sender,
             "receiver": this.state.receiver,
-            "amount": this.state.amount
+            "amount": this.state.amount,
+            "description": this.state.description
         };
         console.log(payload);
         //const callback = this.props.onceAddCustomerSuccess;
@@ -172,7 +173,7 @@ class Transaction extends Component {
             }
         }
 
-        axios.post(finalUrl, payload)
+        axios.put(finalUrl, payload)
             .then(function (response) {
                 console.log(response);
 

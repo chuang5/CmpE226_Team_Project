@@ -83,7 +83,7 @@ class AddCustomer extends Component {
             "phone": this.state.phone,
             "address": this.state.address,
             "password": this.state.password,
-            "employee_id": localStorage.getItem("employee"),
+            "employee_id": parseInt(localStorage.getItem("employee")),
         };
         console.log(payload);
         const callback = this.props.onceAddCustomerSuccess;
