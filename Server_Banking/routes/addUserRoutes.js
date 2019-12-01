@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 });
 
 exports.signup = function (req, res) {
-    console.log("req", req.body);
+    console.log("signup: req", req.body);
     const newUser = {
         "username": req.body.username,
         "name": req.body.name,
@@ -70,7 +70,7 @@ exports.signup = function (req, res) {
 }
 
 exports.addCustomer = function (req, res) {
-    console.log("req", req.body);
+    console.log(": req", req.body);
     const newUser = {
         "name": req.body.name,
         "ssn": req.body.ssn,
@@ -88,12 +88,6 @@ exports.addCustomer = function (req, res) {
             // new user ID
             customer_id = results.insertId;
 
-            // connection.query('INSERT INTO agent (customer_id, agent_id) VALUES (?, ?)',
-            //     [customer_id, newUser.agent],
-            //     function (error, results) {
-            //         if (error) { console.log("error occurred", error); }
-            //         console.log("agency added")
-            //     });
             console.log("customer added")
             res.status(200).json({
                 message: "Customer registered successfully"

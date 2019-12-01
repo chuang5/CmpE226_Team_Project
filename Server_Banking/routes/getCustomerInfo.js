@@ -13,6 +13,7 @@ const connection = mysql.createConnection({
 });
 
 exports.getCustomerInfo = function (req, res) {
+    console.log('getCustomerInfo: req', req);
     let customerInfo = [];
     customer_id = req.body.customer_id;
     connection.query('SELECT * FROM customers WHERE customer_id = ?', [customer_id],

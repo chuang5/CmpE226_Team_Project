@@ -39,7 +39,7 @@ connection.query('SELECT * FROM credit_card', function (err, results) {
 
 
 exports.payCreditCard = function (req, res) {
-    console.log("req", req.body);
+    console.log("payCreditCard: req", req.body);
 
     const transaction = {
         sender: req.body.sender, // checking account
@@ -98,7 +98,7 @@ exports.payCreditCard = function (req, res) {
 
 
 exports.purchase = function (req, res) {
-    console.log("req", req.body);
+    console.log("purchase: req", req.body);
 
     const transaction = {
         sender: req.body.sender, 
@@ -158,7 +158,7 @@ exports.purchase = function (req, res) {
 
 
 exports.toSaving = function (req, res) {
-    console.log("req", req.body);
+    console.log("toSaving: req", req.body);
 
     const transaction = {
         sender: req.body.sender, 
@@ -217,7 +217,7 @@ exports.toSaving = function (req, res) {
 
 
 exports.fromSaving = function (req, res) {
-    console.log("req", req.body);
+    console.log("fromSaving: req", req.body);
 
     const transaction = {
         sender: req.body.sender, 
@@ -276,7 +276,7 @@ exports.fromSaving = function (req, res) {
 
 
 exports.frieness = function (req, res) {
-    console.log("req", req.body);
+    console.log("frieness: req", req.body);
 
     const transaction = {
         sender: req.body.sender, 

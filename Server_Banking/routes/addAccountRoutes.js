@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 });
 
 exports.addCreditCard = function (req, res) {
-    console.log("req", req.body);
+    console.log("addCreditCard: req", req.body);
     // only Visa card: 4###-####-####-####, random generate
     card_num = parseInt(Math.random() * 1E15 + 4000000000000000).toString();
 
@@ -58,7 +58,7 @@ exports.addCreditCard = function (req, res) {
 }
 
 exports.addSaving = function (req, res) {
-    console.log("req", req.body);
+    console.log("addSaving: req", req.body);
     account_num = parseInt(Math.random() * 1E16).toString();
 
     const newSaving = {
@@ -91,7 +91,7 @@ exports.addSaving = function (req, res) {
 }
 
 exports.addChecking = function (req, res) {
-    console.log("req", req.body);
+    console.log("addChecking: req", req.body);
     account_num = parseInt(Math.random() * 1E16).toString();
 
     const newChecking = {
