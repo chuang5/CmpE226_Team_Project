@@ -136,6 +136,7 @@ exports.purchase = function (req, res) {
                                 } else {
                                         connection.query('CALL purchase(?, ?, ?, ?)', [transaction.sender, transaction.receiver, transaction.amount, new Date()],
                                         function (error, results) {
+                                            console.log(results)
                                             if (error) {
                                                 console.log("error occurred", error);
                                                 res.status(400).json({
