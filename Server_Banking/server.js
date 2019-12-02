@@ -1,3 +1,8 @@
+/**
+ * SJSU CMPE226 Fall2019 TEAM4
+ * 
+ *  */
+
 const express = require('express');
 const mysql = require('mysql');
 
