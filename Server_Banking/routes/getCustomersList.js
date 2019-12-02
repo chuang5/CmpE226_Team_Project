@@ -19,6 +19,21 @@ exports.getCustomersList = function (req, res) {
     function returnList() {
         res.status(200).json({ customersList });
     }
+    if (agent_id == 1) {
+        connection.query('SELECT * FROM employees WHERE employee_id NOT IN (1)',
+            function (error, results) {
+                if (error) {
+                    console.log("error occurred", error);
+                    res.status(400).json({
+                        message: "error occurred"
+                    })
+                } else {
+                    console.log('The solution is: ', results);
+                    customersList = customersList.concat(results);
+                }
+            });
+    }
+
     connection.query('SELECT * FROM agent WHERE agent_id=?', [agent_id], function (error, results) {
         if (error) {
             console.log("error occurred", error);
@@ -36,7 +51,7 @@ exports.getCustomersList = function (req, res) {
                             })
                         } else {
                             console.log('The solution is: ', results);
-                            customersList = customersList.concat(results );
+                            customersList = customersList.concat(results);
                         }
                     });
             }
@@ -69,7 +84,7 @@ exports.getCustomersAccounts = function (req, res) {
                             })
                         } else {
                             console.log('The solution is: ', results);
-                            customersAccounts = customersAccounts.concat(results );
+                            customersAccounts = customersAccounts.concat(results);
                         }
                     });
             }

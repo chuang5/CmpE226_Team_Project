@@ -123,14 +123,15 @@ class CustomerList extends React.Component {
         });
     };
 
-    handleMenuClick = (customerid, name) => {
+    handleMenuClick = (customerid, employeeid, name) => {
         message.info('Deleting Customer: ' + customerid);
-        console.log('click', customerid, name);
+        console.log('click', customerid, employeeid, name);
 
         const apiBaseUrl = "http://localhost:5000";
         console.log("values",customerid);
         let payload = {
             "customer_id" : customerid,
+            "employee_id" : employeeid,
             "name": name
         };
         axios.post(apiBaseUrl+'/deleteCustomer', payload)
@@ -149,8 +150,8 @@ class CustomerList extends React.Component {
     };
 
     render() {
-        const menu = (customerid, name) => (
-            <Menu onClick={this.handleMenuClick.bind(this, customerid, name)}>
+        const menu = (customerid, employeeid, name) => (
+            <Menu onClick={this.handleMenuClick.bind(this, customerid, employeeid, name)}>
                 <Menu.Item key="1">
                     <Icon type="user" />
                     Delete Customer
@@ -188,7 +189,7 @@ class CustomerList extends React.Component {
                                 />
                                 <div>{item.phone}</div>
                                 <div>
-                                    <Dropdown overlay={menu(item.customer_id, item.name)} customerId={item.customer_id}>
+                                    <Dropdown overlay={menu(item.customer_id, item.employee_id, item.name)} customerId={item.customer_id}>
                                         <Button>
                                             Action <Icon type="down" />
                                         </Button>
