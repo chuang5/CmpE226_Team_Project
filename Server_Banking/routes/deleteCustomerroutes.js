@@ -15,57 +15,74 @@ const connection = mysql.createConnection({
 exports.deleteCustomer = function(req,res){
     console.log("deleteCustomer: req",req.body);
     const customer_id = req.body.customer_id;
+    const employee_id = req.body.employee_id;
+    const name = req.body.name;
 
-    connection.query('DELETE FROM customers WHERE customer_id = ?', customer_id, function (error, results) {
-        if (error) {
-            console.log("error occurred",error);
-            res.status(400).json({
-                message:"error occurred"
-            })
-        }else{
-            console.log('The solution is: ', results);
-        }
-    });
-    connection.query('DELETE FROM agent WHERE customer_id = ?', customer_id, function (error, results) {
-        if (error) {
-            console.log("error occurred",error);
-            res.status(400).json({
-                message:"error occurred"
-            })
-        }else{
-            console.log('The solution is: ', results);
-        }
-    });
-    connection.query('DELETE FROM checking WHERE customer = ?', customer_id, function (error, results) {
-        if (error) {
-            console.log("error occurred",error);
-            res.status(400).json({
-                message:"error occurred"
-            })
-        }else{
-            console.log('The solution is: ', results);
-        }
-    });
-    connection.query('DELETE FROM saving WHERE customer = ?', customer_id, function (error, results) {
-        if (error) {
-            console.log("error occurred",error);
-            res.status(400).json({
-                message:"error occurred"
-            })
-        }else{
-            console.log('The solution is: ', results);
-        }
-    });
-    connection.query('DELETE FROM credit_card WHERE customer = ?', customer_id, function (error, results) {
-        if (error) {
-            console.log("error occurred",error);
-            res.status(400).json({
-                message:"error occurred"
-            })
-        }else{
-            console.log('The solution is: ', results);
-        }
-    });
+    if(customer_id == null){
+        connection.query('DELETE FROM employees WHERE employee_id = ? AND name = ?', 
+        [employee_id, name], function (error, results) {
+            if (error) {
+                console.log("error occurred", error);
+                res.status(400).json({
+                    message: "error occurred"
+                })
+            } else {
+                console.log('The solution is: ', results);
+            }
+        });
+    }else{
+        connection.query('DELETE FROM customers WHERE customer_id = ? AND name = ?',
+        [customer_id, name], function (error, results) {
+            if (error) {
+                console.log("error occurred",error);
+                res.status(400).json({
+                    message:"error occurred"
+                })
+            }else{
+                console.log('The solution is: ', results);
+                connection.query('DELETE FROM agent WHERE customer_id = ?', customer_id, function (error, results) {
+                    if (error) {
+                        console.log("error occurred",error);
+                        res.status(400).json({
+                            message:"error occurred"
+                        })
+                    }else{
+                        console.log('The solution is: ', results);
+                    }
+                });
+                connection.query('DELETE FROM checking WHERE customer = ?', customer_id, function (error, results) {
+                    if (error) {
+                        console.log("error occurred",error);
+                        res.status(400).json({
+                            message:"error occurred"
+                        })
+                    }else{
+                        console.log('The solution is: ', results);
+                    }
+                });
+                connection.query('DELETE FROM saving WHERE customer = ?', customer_id, function (error, results) {
+                    if (error) {
+                        console.log("error occurred",error);
+                        res.status(400).json({
+                            message:"error occurred"
+                        })
+                    }else{
+                        console.log('The solution is: ', results);
+                    }
+                });
+                connection.query('DELETE FROM credit_card WHERE customer = ?', customer_id, function (error, results) {
+                    if (error) {
+                        console.log("error occurred",error);
+                        res.status(400).json({
+                            message:"error occurred"
+                        })
+                    }else{
+                        console.log('The solution is: ', results);
+                    }
+                });
+            }
+        });
+    }
     function returnResult() {
         res.status(200).json({message:"Customer delete successfully"});
     }
