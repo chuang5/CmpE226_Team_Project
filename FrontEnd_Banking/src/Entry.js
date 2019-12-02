@@ -1,3 +1,4 @@
+//SJSU CMPE 226 Fall 2019 TEAM4
 import React, {Component} from 'react';
 import App from "./App";
 import Main from "./Main";

@@ -1,3 +1,4 @@
+//SJSU CMPE 226 Fall 2019 TEAM4
 import React, { Component } from 'react';
 import './view2.css';
 import PieChart from '../../charts/PieChart';
