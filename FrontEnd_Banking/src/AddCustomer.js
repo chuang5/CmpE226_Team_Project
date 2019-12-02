@@ -10,12 +10,10 @@ class AddCustomer extends Component {
     constructor(props){
         super(props);
         this.state={
-            user_name:'',
             name:'',
             ssn:'',
             phone:'',
-            address:'',
-            password:''
+            address:''
         }
     }
 
@@ -27,11 +25,6 @@ class AddCustomer extends Component {
                         {/*<AppBar*/}
                         {/*    title="Open Account"*/}
                         {/*/>*/}
-                        <TextField
-                            hintText="Enter your User Name"
-                            floatingLabelText="User Name"
-                            onChange = {(event,newValue) => this.setState({user_name:newValue})}
-                        />
                         <br/>
                         <TextField
                             hintText="Enter your Name"
@@ -59,13 +52,6 @@ class AddCustomer extends Component {
                             onChange = {(event,newValue) => this.setState({phone:newValue})}
                         />
                         <br/>
-                        <TextField
-                            type = "password"
-                            hintText="Enter your Password"
-                            floatingLabelText="Password"
-                            onChange = {(event,newValue) => this.setState({password:newValue})}
-                        />
-                        <br/>
                         <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick.bind(this)(event)}/>
                     </div>
                 </MuiThemeProvider>
@@ -77,12 +63,10 @@ class AddCustomer extends Component {
         var apiBaseUrl = "http://localhost:5000";
         //To be done:check for empty values before hitting submit
         let payload = {
-            "username": this.state.user_name,
             "name": this.state.name,
             "ssn": this.state.ssn,
             "phone": this.state.phone,
             "address": this.state.address,
-            "password": this.state.password,
             "employee_id": parseInt(localStorage.getItem("employee")),
         };
         console.log(payload);
