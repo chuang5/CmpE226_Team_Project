@@ -1,43 +1,4 @@
-// import React, {Component} from 'react';
-// import { Layout } from 'antd';
-// const { Header, Footer, Sider, Content } = Layout;
-//
-// class customerdetail extends Component {
-//     render() {
-//         return (
-//
-//             <Layout style={{height:900}}>
-//                 <Sider width={300}>
-//                     <Content style={{height:200}}>
-//                         View1
-//                     </Content>
-//                     <Content style={{height:300}}>
-//                         View2
-//                     </Content>
-//                     <Content style={{height:400}}>
-//                         View3
-//                     </Content>
-//                 </Sider>
-//                 <Layout>
-//                     <Content style={{height:300}}>
-//                         View4
-//                     </Content>
-//                     <Layout style={{height:600}}>
-//                         <Content>
-//                             View5
-//                         </Content>
-//                         <Sider width={300}>
-//                             View6
-//                         </Sider>
-//                     </Layout>
-//                 </Layout>
-//             </Layout>
-//
-//         );
-//     }
-// }
-//
-// export default customerdetail;
+//SJSU CMPE 226 Fall 2019 TEAM4
 import React, { Component } from 'react';
 import data from './customerdetail/data';
 import { Layout } from 'antd';
