@@ -1,3 +1,8 @@
+/**
+ * SJSU CMPE226 Fall2019 TEAM4
+ * 
+ *  */
+
 USE `226team`;
 DROP procedure IF EXISTS `pay_credit_card`;
 

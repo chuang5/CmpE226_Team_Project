@@ -1,3 +1,8 @@
+/**
+ * SJSU CMPE226 Fall2019 TEAM4
+ * 
+ *  */
+
 DROP TABLE IF EXISTS `customer_log`;
 
 CREATE TABLE `customer_log` (

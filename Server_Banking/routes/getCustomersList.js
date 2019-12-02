@@ -1,3 +1,8 @@
+/**
+ * SJSU CMPE226 Fall2019 TEAM4
+ * 
+ *  */
+
 const mysql = require('mysql');
 // const connection = mysql.createConnection({
 //     host: 'localhost',
