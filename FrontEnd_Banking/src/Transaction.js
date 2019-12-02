@@ -135,7 +135,12 @@ class Transaction extends Component {
                         <Checkbox onChange={this.onChange}>This is Frieness Transaction</Checkbox>
                         <br/>
                         <br/>
-                        {this.state.isFrieness && <Input placeholder="Description" onChange = {(event,newValue) => this.setState({description:newValue})}/>}
+                        {this.state.isFrieness && 
+                            <TextField 
+                                hintText="Description"
+                                floatingLabelText="Enter Description"
+                                onChange = {(event,newValue) => this.setState({description:newValue})}/>}
+                        <br/>
                         <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick.bind(this)(event)}/>
                     </div>
                 </MuiThemeProvider>

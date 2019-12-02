@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
 
 exports.login = function (req, res) {
     console.log('login: req', req.body);
-    connection.query('SELECT * FROM customers WHERE username = ?',
+    connection.query('SELECT * FROM employees WHERE username = ?',
         [req.body.username], function (error, results) {
             if (error) {
                 console.log("error occurred", error);
