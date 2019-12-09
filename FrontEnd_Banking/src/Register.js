@@ -12,8 +12,10 @@ class Register extends Component {
         this.state={
             first_name:'',
             last_name:'',
-            email:'',
-            password:''
+            address:'',
+            password:'',
+            phone:'',
+            ssn:''
         }
     }
     render() {
@@ -37,10 +39,24 @@ class Register extends Component {
                         />
                         <br/>
                         <TextField
-                            hintText="Enter your Email"
-                            type="email"
-                            floatingLabelText="Email"
-                            onChange = {(event,newValue) => this.setState({email:newValue})}
+                            hintText="Enter your Address"
+                            type="text"
+                            floatingLabelText="Address"
+                            onChange = {(event,newValue) => this.setState({address:newValue})}
+                        />
+                        <br/>
+                        <TextField
+                            hintText="Enter your SSN"
+                            type="text"
+                            floatingLabelText="SSN"
+                            onChange = {(event,newValue) => this.setState({ssn:newValue})}
+                        />
+                        <br/>
+                        <TextField
+                            hintText="Enter your Phone Number"
+                            type="text"
+                            floatingLabelText="Phone Number"
+                            onChange = {(event,newValue) => this.setState({phone:newValue})}
                         />
                         <br/>
                         <TextField
@@ -58,17 +74,19 @@ class Register extends Component {
     }
 
     handleClick(event){
-        var apiBaseUrl = "http://localhost:5000/api/";
+        var apiBaseUrl = "http://localhost:5000";
         console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
         //To be done:check for empty values before hitting submit
         let self = this;
         let payload = {
-            "first_name": this.state.first_name,
-            "last_name": this.state.last_name,
-            "email": this.state.email,
+            "username": this.state.first_name,
+            "name": this.state.last_name,
+            "ssn": this.state.ssn,
+            "phone": this.state.phone,
+            "address": this.state.address,
             "password": this.state.password
         };
-        axios.post(apiBaseUrl+'/register', payload)
+        axios.post(apiBaseUrl+'/Signup', payload)
             .then(function (response) {
                 console.log(response);
                 if(response.data.code === 200){

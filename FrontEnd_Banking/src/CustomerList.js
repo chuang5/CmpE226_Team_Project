@@ -87,14 +87,6 @@ class CustomerList extends React.Component {
                     <Icon type="user" />
                     Delete Customer
                 </Menu.Item>
-                <Menu.Item key="2">
-                    <Icon type="user" />
-                    2nd menu item
-                </Menu.Item>
-                <Menu.Item key="3">
-                    <Icon type="user" />
-                    3rd item
-                </Menu.Item>
             </Menu>
         );
 
