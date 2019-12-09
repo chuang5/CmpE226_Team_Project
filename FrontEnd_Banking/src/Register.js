@@ -89,9 +89,11 @@ class Register extends Component {
         axios.post(apiBaseUrl+'/Signup', payload)
             .then(function (response) {
                 console.log(response);
-                if(response.data.code === 200){
+                if(response.status === 200){
+                    //alert("Registeration is successful")
                     //  console.log("registration successfull");
                     let loginscreen=[];
+                    window.location.reload();
                     loginscreen.push(<Login parentContext={this}/>);
                     let loginmessage = "Not Registered yet.Go to registration";
                     self.props.parentContext.setState({loginscreen:loginscreen,
@@ -99,6 +101,7 @@ class Register extends Component {
                         buttonLabel:"Register",
                         isLogin:true
                     });
+
                 }
             })
             .catch(function (error) {

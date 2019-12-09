@@ -55,7 +55,7 @@ class CustomerList extends React.Component {
     };
 
     handleMenuClick = (customerid, employeeid, name) => {
-        message.info('Deleting Customer: ' + customerid);
+        //message.info('Deleting Customer: ' + customerid);
         console.log('click', customerid, employeeid, name);
 
         const apiBaseUrl = "http://localhost:5000";
