@@ -68,10 +68,11 @@ class CustomerList extends React.Component {
         axios.post(apiBaseUrl+'/deleteCustomer', payload)
             .then(function (response) {
                 console.log(response);
-                if(response.data.code === 200){
+                if(response.data.message == "Customer delete successfully"){
                     console.log("delete customer successfully");
                     //{callback()}
                     alert("Customer deleted successfully!");
+                    window.location.reload();
                 }
             })
             .catch(function (error) {
