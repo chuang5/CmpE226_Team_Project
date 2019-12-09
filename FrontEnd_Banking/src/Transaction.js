@@ -182,7 +182,7 @@ class Transaction extends Component {
         axios.put(finalUrl, payload)
             .then(function (response) {
                 console.log(response);
-
+                alert(response.data.success);
             })
             .catch(function (error) {
                 console.log(error);

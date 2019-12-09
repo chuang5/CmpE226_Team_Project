@@ -81,16 +81,16 @@ class OpenAccount extends Component {
         axios.post(finalUrl, payload)
             .then(function (response) {
                 console.log(response);
-                if(response.data.message === "Checking applied successfully"){
+                if(response.data.success === "Checking applied successfully"){
                     console.log("Added checking account successfully");
                     alert("Added checking account successfully");
-                } else if (response.data.message === "Saving applied successfully") {
+                } else if (response.data.success === "Saving applied successfully") {
                     console.log("Added saving account successfully");
                     alert("Added saving account successfully");
-                } else if (response.data.message == "This user already had a saving account") {
+                } else if (response.data.success == "This user already had a saving account") {
                     console.log("This user already had a saving account");
                     alert("This user already had a saving account");
-                } else if (response.data.message == "This user already had a checking account") {
+                } else if (response.data.success == "This user already had a checking account") {
                     console.log("This user already had a checking account");
                     alert("This user already had a checking account");
                 }
