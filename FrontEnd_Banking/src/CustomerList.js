@@ -88,14 +88,6 @@ class CustomerList extends React.Component {
                     <Icon type="user" />
                     Delete Customer
                 </Menu.Item>
-                <Menu.Item key="2">
-                    <Icon type="user" />
-                    2nd menu item
-                </Menu.Item>
-                <Menu.Item key="3">
-                    <Icon type="user" />
-                    3rd item
-                </Menu.Item>
             </Menu>
         );
 
@@ -116,7 +108,7 @@ class CustomerList extends React.Component {
                                     avatar={
                                         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                     }
-                                    title={<a href={'/customerDetail/' + item.customer_id}>{item.name}</a>}
+                                    title={<a href={'/customerDetail/' + item.customer_id}>{item.agent_id == localStorage.getItem("employee") ? "***" + item.name : item.name}</a>}
                                     description={item.ssn}
                                 />
                                 <div>{item.phone}</div>

@@ -41,14 +41,7 @@ class CustomMenu extends React.Component {
                             <Link to='/main/myBusiness' >My Business</Link>
                         </span>
                     </Menu.Item>
-                    <Menu.Item key="2">
-                        <Icon type="desktop" />
-                        <span>Option 2</span>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        <Icon type="inbox" />
-                        <span>Option 3</span>
-                    </Menu.Item>
+
                     <SubMenu
                         key="sub1"
                         title={
@@ -61,31 +54,12 @@ class CustomMenu extends React.Component {
                         <Menu.Item key="5">
                             <Link to='/main/addCustomer' >Add Customer </Link>
                         </Menu.Item>
-                        <Menu.Item key="6">
-                            <Link to='/main/deleteCustomer' >Delete Customer</Link>
-                        </Menu.Item>
                         <Menu.Item key="7">
                             <Link to='/main/openAccount'>Open Account</Link>
                         </Menu.Item>
                         <Menu.Item key="8">
                             <Link to='/main/transaction'>Transaction</Link>
                         </Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                        key="sub2"
-                        title={
-                            <span>
-                                <Icon type="appstore" />
-                                <span>Navigation Two</span>
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="9">Option 9</Menu.Item>
-                        <Menu.Item key="10">Option 10</Menu.Item>
-                        <SubMenu key="sub3" title="Submenu">
-                            <Menu.Item key="11">Option 11</Menu.Item>
-                            <Menu.Item key="12">Option 12</Menu.Item>
-                        </SubMenu>
                     </SubMenu>
                     <Menu.Item key="13">
                         <Icon type="logout" />
