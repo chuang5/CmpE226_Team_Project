@@ -30,16 +30,15 @@ exports.login = function (req, res) {
             } else {
                 // console.log(req.body)
                 if (results.length > 0) {
-                    var pswString = results[0].password;
-                    connection.query('SELECT encryption FROM encryptpsw WHERE origin = ?',
-                        [req.body.password], function (error, result) {
+                    connection.query('SELECT * FROM employees WHERE username = ? AND password = SHA1(?)',
+                        [results[0].username, req.body.password], function (error, result) {
                             if (error) {
                                 console.log("error occurred", error);
                                 res.status(400).json({
                                     failed: "error occurred"
                                 })
                             }
-                            if (result.length > 0 && pswString == result[0].encryption) {
+                            if (result.length > 0) {
                                 res.status(200).json({
                                     message: "login successfully",
                                     data: results[0]

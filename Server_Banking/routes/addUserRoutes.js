@@ -49,17 +49,6 @@ exports.signup = function (req, res) {
                         function (error, results) {
                             if (error) { console.log("error occurred", error); }
                             // add to encryption table
-                            connection.query('SELECT * FROM encryptpsw WHERE encryption=SHA1(?);',
-                                [newUser.password], function (error, results) {
-                                    if (error) { console.log("error occurred", error); }
-                                    if (results.length == 0) {
-                                        connection.query('INSERT INTO encryptpsw (encryption, origin) VALUES (SHA1(?), ?)',
-                                            [newUser.password, newUser.password], function (error, results) {
-                                                if (error) { console.log("error occurred", error); }
-                                                console.log("encrypted paswword added")
-                                            });
-                                    }
-                                })
                             console.log("Employee added")
                             res.status(200).json({
                                 message: "Employee registered successfully"
