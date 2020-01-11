@@ -6,8 +6,9 @@
 const express = require('express');
 const mysql = require('mysql');
 
-const login = require('./routes/loginRoutes');
-const addUser = require('./routes/addUserRoutes');
+const login = require('./routes/loginRoute');
+const signup = require('./routes/signupRoute');
+const addUser = require('./routes/addUserRoute');
 const addAccount = require('./routes/addAccountRoutes');
 const updateAccount = require('./routes/updateAccountRoute');
 const getCustomersList = require('./routes/getCustomersList');
@@ -54,7 +55,7 @@ router.get('/', function (req, res) {
 });
 //route to handle user registration
 router.post('/login', login.login);
-router.post('/Signup', addUser.signup);
+router.post('/signup', signup.signup);
 router.post('/addCustomer', addUser.addCustomer);
 router.post('/addCreditCard', addAccount.addCreditCard);
 router.post('/addSaving', addAccount.addSaving);
