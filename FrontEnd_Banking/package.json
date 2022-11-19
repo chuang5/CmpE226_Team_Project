@@ -13,7 +13,7 @@
     "react-dropzone": "^10.1.10",
     "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "reqwest": "^2.0.5",
     "superagent": "^5.1.0"
   },
